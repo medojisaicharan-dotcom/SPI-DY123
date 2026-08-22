@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Classified Spider-Man archive with a dark, cinematic, mysterious interactive character showcase."
+    />
+    <title>CLASSIFIED SPIDER ARCHIVE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-noise"></div>
+    <div class="scanlines"></div>
+
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand-mark">🕷</div>
+        <div class="brand-text">
+          <span>CLASSIFIED</span>
+          <strong>SPIDER ARCHIVE</strong>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#characters">Spider-Verse</a>
+        <a href="#loved-ones">Loved Ones</a>
+        <a href="#classified-files">Classified Files</a>
+        <a href="#mystery">Mystery</a>
+      </nav>
+    </header>
+
+    <main id="home" class="page-shell">
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <p class="eyebrow">ARCHIVE // FILE 07 / INIT</p>
+          <h1>THE SPIDER-VERSE IS NOT WHAT IT SEEMS.</h1>
+          <p class="subtitle">
+            Three identities. Three timelines. One hidden signal buried beneath the web.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#characters" class="cta-primary">ENTER ARCHIVE</a>
+            <button type="button" class="cta-secondary" id="revealSecret">REVEAL CLUE</button>
+          </div>
+
+          <div class="signal-block">
+            <span class="signal-label">Encrypted signal</span>
+            <p class="signal-text">[ 03 : 14 : 27 ] // 0x8A7F // UYR-Q7N // WEBTRACE</p>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orb orb-red"></div>
+          <div class="orb orb-blue"></div>
+          <div class="web-frame">
+            <div class="web web-one"></div>
+            <div class="web web-two"></div>
+            <div class="web web-three"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="characters" class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">SPIDER-VERSE / CHARACTER MATRIX</p>
+          <h2>Known carriers of the web</h2>
+        </div>
+        <div class="character-grid" id="characterGrid"></div>
+      </section>
+
+      <section id="loved-ones" class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">LOVED ONES / ARCHIVE</p>
+          <h2>Fragments of memory</h2>
+        </div>
+        <div class="loved-grid" id="lovedGrid"></div>
+      </section>
+
+      <section id="classified-files" class="section-block file-panel">
+        <div class="section-heading">
+          <p class="eyebrow">CLASSIFIED FILES / STATUS</p>
+          <h2>Threat assessment</h2>
+        </div>
+        <div class="file-grid" id="fileGrid"></div>
+      </section>
+
+      <section id="mystery" class="section-block mystery-panel">
+        <div class="section-heading">
+          <p class="eyebrow">MYSTERY / UNSOLVED</p>
+          <h2>The hidden signal</h2>
+        </div>
+
+        <div class="mystery-box">
+          <div class="cipher-block">
+            <span class="cipher-header">Encrypted trace</span>
+            <p id="secretMessage">[ SIGNAL UNSTABLE ] // the archive is listening</p>
+          </div>
+
+          <ul class="clue-list" id="clueList"></ul>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal hidden" id="profileModal" aria-modal="true" role="dialog" aria-labelledby="profileTitle">
+      <div class="modal-backdrop" data-close="true"></div>
+      <div class="modal-panel">
+        <button type="button" class="close-button" id="closeProfile" aria-label="Close profile">×</button>
+        <div id="profileContent"></div>
+      </div>
+    </div>
+
+    <div class="video-modal hidden" id="videoModal" aria-modal="true" role="dialog">
+      <div class="video-backdrop" data-close="true"></div>
+      <div class="video-panel">
+        <button type="button" class="close-button" id="closeVideo" aria-label="Close video">×</button>
+        <video id="videoPlayer" controls playsinline preload="metadata">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
