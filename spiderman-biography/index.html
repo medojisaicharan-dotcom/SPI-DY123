@@ -3,34 +3,949 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="An interactive fictional archive tracing Spider-Man's origin, abilities, technology, allies, enemies, and alternate universes." />
-    <title>SPIDER-MAN // THE HERO ARCHIVE</title>
+    <meta name="description" content="A cinematic classified multiverse dossier comparing three live-action Spider-Men: Tom Holland (MCU), Tobey Maguire (Raimi), and Andrew Garfield (Webb)." />
+    <title>Spider-Man: Three Heroes, Three Universes, One Responsibility</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="sound.css" />
   </head>
   <body>
-    <div class="ambient-grid" aria-hidden="true"></div><div class="web-overlay" aria-hidden="true"></div>
+    <!-- Top Reading Progress Indicator -->
+    <div id="readingProgress" aria-hidden="true"></div>
+
+    <!-- 1. Themed Loading Screen -->
+    <div class="loading-screen" id="loadingScreen" aria-live="polite">
+      <svg class="loading-spider" viewBox="0 0 100 100">
+        <path d="M50,15 L50,85 M20,50 L80,50 M30,30 L70,70 M30,70 L70,30 M50,30 C35,30 35,70 50,70 C65,70 65,30 50,30 Z M50,40 C43,40 43,60 50,60 C57,60 57,40 50,40 Z M30,30 C15,35 15,65 30,70 M70,30 C85,35 85,65 70,70" />
+      </svg>
+      <div class="loading-text">Accessing Multiverse Dossier Archive...</div>
+    </div>
+
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="web-overlay" aria-hidden="true"></div>
+
+    <!-- 2. Header & Sticky Navigation -->
     <header class="site-header">
-      <a class="brand" href="#home" aria-label="Spider-Man hero archive home"><span class="brand-mark">✦</span><span><small>FILE 001 / PUBLIC ACCESS</small><strong>THE HERO ARCHIVE</strong></span></a>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">MENU</button>
-      <nav id="mainNav" class="main-nav" aria-label="Primary navigation"><a href="#biography">Biography</a><a href="#powers">Powers</a><a href="#technology">Technology</a><a href="#allies">Allies</a><a href="#villains">Villains</a><a href="#universes">Universes</a><a href="#timeline">Timeline</a></nav>
-      <div class="sound-controls"><button id="soundToggle" type="button" aria-expanded="false" aria-controls="soundPanel">Sound off</button><div class="sound-panel" id="soundPanel" hidden><label>Master volume <input id="masterVolume" type="range" min="0" max="100" value="35" /></label><label>Interface effects <input id="effectsVolume" type="range" min="0" max="100" value="80" /></label><label>Ambient audio <input id="ambientVolume" type="range" min="0" max="100" value="0" /></label><label class="switch-row"><input id="muteAudio" type="checkbox" /> Mute all audio</label></div></div>
+      <a class="brand" href="#home" aria-label="Spider-Man Multiverse Dossier Home">
+        <span class="brand-mark">✦</span>
+        <span>
+          <small>CLASSIFIED // MULTIVERSE ARCHIVE</small>
+          <strong>THREE SPIDER-MEN</strong>
+        </span>
+      </a>
+      
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">
+        MENU
+      </button>
+      
+      <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
+        <a href="#home" class="active">Home</a>
+        <a href="#dossiers">Dossiers</a>
+        <a href="#losses">Losses</a>
+        <a href="#comparison">Comparison</a>
+        <a href="#villains">Villain Archive</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#sources">Sources</a>
+        <a href="missions.html" class="nav-pill-hub">Missions Hub ↗</a>
+      </nav>
+
+      <!-- Dynamic Web Audio Controls -->
+      <div class="sound-controls">
+        <button id="soundToggle" class="sound-btn" type="button" aria-expanded="false" aria-controls="soundPanel" aria-label="Audio settings">
+          <svg id="volumeIcon" viewBox="0 0 24 24">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM19 12c0 3.28-2.16 6.07-5.14 7.06v2.02c4.09-1 7.14-4.66 7.14-9.08s-3.05-8.08-7.14-9.08v2.02c2.98.99 5.14 3.78 5.14 7.06zM3 9v6h4l5 5V4L7 9H3zm7 3.5v3.13l-2.74-2.74c-.2-.2-.46-.39-.76-.39H5v-3h1.5c.3 0 .56-.19.76-.39L10 8.37v4.13z"/>
+          </svg>
+          <span id="soundBtnText">Sound On</span>
+        </button>
+        
+        <div class="sound-panel" id="soundPanel" hidden>
+          <label>Master volume 
+            <input id="masterVolume" type="range" min="0" max="100" value="35" aria-label="Master volume control"/>
+          </label>
+          <label>Interface effects 
+            <input id="effectsVolume" type="range" min="0" max="100" value="80" aria-label="Interface effects volume"/>
+          </label>
+          <label class="switch-row">Mute all audio
+            <input id="muteAudio" type="checkbox" aria-label="Mute all audio check"/>
+          </label>
+        </div>
+      </div>
     </header>
+
     <main>
-      <section class="hero" id="home"><div class="hero-city" role="img" aria-label="Night skyline of Manhattan"></div><div class="hero-mist" aria-hidden="true"></div><div class="hero-copy reveal"><p class="kicker">NEW YORK / EARTH-616 / ACTIVE</p><h1>SPIDER-MAN<span>: THE STORY<br />OF A HERO</span></h1><p class="hero-lede">A living record of Peter Parker's impossible equation: scientific curiosity, human vulnerability, and the choice to help when no one is watching.</p><div class="hero-actions"><a class="button button-red" href="#biography">Explore biography <span>↘</span></a><a class="button button-ghost" href="#powers">View powers <span>→</span></a><a class="text-link" href="#technology">Discover suit technology <span>↗</span></a></div></div><div class="hero-readout reveal"><span>ARCHIVE STATUS</span><strong>ONLINE</strong><i></i><small>Last sync: 08.22.2026</small></div><a class="scroll-cue" href="#biography">Scroll to investigate <span>↓</span></a></section>
-      <section class="section intro-section" id="biography"><div class="section-heading reveal"><p class="kicker">01 / THE HUMAN BEHIND THE MASK</p><h2>Every legend starts<br /><em>with a life.</em></h2></div><div class="intro-grid"><div class="intro-statement reveal"><p>Peter Parker was not born extraordinary. He became extraordinary by refusing to let loss have the final word.</p><span>— ARCHIVE NOTE / VERIFIED FICTIONAL RECORD</span></div><div class="bio-copy reveal"><p>Raised in Queens by Aunt May and Uncle Ben, Peter found his first superpower in the laboratory. The bite changed his biology; Ben's lesson changed his direction.</p><p>This archive treats Spider-Man as a fictional character across stories and universes. Values and specifications marked <b>IN-UNIVERSE</b> are illustrative, not real-world science.</p></div></div><div class="origin-timeline" id="originTimeline"></div></section>
-      <section class="section dark-section" id="powers"><div class="section-heading split-heading reveal"><div><p class="kicker">02 / BIOLOGICAL SPECIFICATIONS</p><h2>The body is the<br /><em>first instrument.</em></h2></div><span class="fiction-label">FICTIONAL / ILLUSTRATIVE VALUES</span></div><div class="powers-layout"><div class="power-feature reveal"><span class="feature-index">01</span><div class="spider-diagram" aria-hidden="true"><span></span><i></i></div><h3>Spider-sense</h3><p>A pre-cognitive warning system rendered here as a sensory field, not a measurable human capability.</p><strong>THREAT RESPONSE <b>98</b><small>/ 100</small></strong><div class="meter"><i style="--value:98%"></i></div></div><div class="power-grid" id="powerGrid"></div></div></section>
-      <section class="section" id="technology"><div class="section-heading reveal"><p class="kicker">03 / FIELD ENGINEERING</p><h2>Built by hand.<br /><em>Refined in motion.</em></h2></div><div class="tech-layout"><div class="tech-visual reveal"><div class="tech-ring ring-a"></div><div class="tech-ring ring-b"></div><div class="web-shooter"><span>WEB<br />SHOOTER</span></div><div class="tech-label label-a">01 / trigger assembly</div><div class="tech-label label-b">02 / fluid cartridge</div><div class="tech-label label-c">03 / micro-valve</div></div><div class="tech-list" id="techList"></div></div></section>
-      <section class="section tinted-section" id="allies"><div class="section-heading split-heading reveal"><div><p class="kicker">04 / THE PEOPLE WHO KEEP HIM HUMAN</p><h2>Strength is<br /><em>never solitary.</em></h2></div><p class="section-note">Tap a file to expand the relationship record.</p></div><div class="profile-grid" id="allyGrid"></div></section>
-      <section class="section" id="villains"><div class="section-heading split-heading reveal"><div><p class="kicker">05 / THREAT REGISTER</p><h2>Every shadow<br /><em>casts a question.</em></h2></div><div class="filter-row" role="group" aria-label="Filter threat records"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="science">Science</button><button class="filter" data-filter="cosmic">Cosmic</button><button class="filter" data-filter="crime">Crime</button></div></div><div class="threat-grid" id="threatGrid"></div></section>
-      <section class="section dark-section database-section" id="universes"><div class="section-heading reveal"><p class="kicker">06 / CROSS-DIMENSIONAL DATABASE</p><h2>One symbol.<br /><em>Many lives.</em></h2></div><div class="database-tools"><label class="search-box"><span>⌕</span><input id="universeSearch" type="search" placeholder="Search universe, identity, or legacy" /></label><span id="resultCount">05 RECORDS</span></div><div class="universe-grid" id="universeGrid"></div></section>
-      <section class="section" id="timeline"><div class="section-heading reveal"><p class="kicker">07 / MAJOR STORYLINES</p><h2>A life measured<br /><em>in choices.</em></h2></div><div class="storyline" id="storyline"></div></section>
-      <section class="quote-section"><div class="quote-web" aria-hidden="true"></div><p class="kicker">THE CONSTANT / FILE 000</p><blockquote>“With great power comes great responsibility.”</blockquote><cite>A famous fictional motto associated with Spider-Man</cite></section>
+      <!-- 3. Cinematic Hero Section with Multiverse Portal -->
+      <section class="hero" id="home">
+        <div class="hero-city" role="img" aria-label="Night skyline of New York across dimensions"></div>
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
+
+        <!-- Multiverse Portal Background Graphic -->
+        <div class="multiverse-portal" aria-hidden="true">
+          <div class="portal-inner"></div>
+          <div class="portal-core"></div>
+        </div>
+        
+        <div class="hero-copy reveal">
+          <p class="kicker">
+            <span>MULTIVERSE DOSSIER // EARTH-199999 · EARTH-96283 · EARTH-120703</span>
+          </p>
+          <h1>Three Spider-Men.<span>Three Universes. One Legacy.</span></h1>
+          <p class="hero-lede">
+            Explore the lives, powers, battles, sacrifices, and legacies of Tom Holland, Tobey Maguire, and Andrew Garfield. A comparative digital archive of their origins, technology, losses, and growth across parallel timelines.
+          </p>
+
+          <!-- Quick Multiverse Dimension Pills -->
+          <div class="hero-dimension-pills">
+            <a href="#dossier-holland" class="dimension-pill pill-holland" data-jump="holland">
+              <i></i> Tom Holland (Earth-199999)
+            </a>
+            <a href="#dossier-maguire" class="dimension-pill pill-maguire" data-jump="maguire">
+              <i></i> Tobey Maguire (Earth-96283)
+            </a>
+            <a href="#dossier-garfield" class="dimension-pill pill-garfield" data-jump="garfield">
+              <i></i> Andrew Garfield (Earth-120703)
+            </a>
+          </div>
+
+          <div class="hero-actions">
+            <a class="button button-red" href="#dossiers">Explore Their Stories <span>↘</span></a>
+            <a class="button button-ghost" href="#comparison">Compare Multiverse Stats <span>→</span></a>
+            <a class="button button-ghost" href="missions.html">Launch Missions Hub <span>↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Three Main Spider-Man Dossiers Section -->
+      <section class="section" id="dossiers">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <p class="kicker">01 / MULTIVERSE CLASSIFIED DOSSIERS</p>
+            <h2>Comparative <em>Dossiers</em></h2>
+          </div>
+          <span class="editorial-badge">EDITORIAL / CINEMATIC COMPARISON</span>
+        </div>
+
+        <!-- Dossier Navigation Switcher -->
+        <div class="dossier-nav-bar reveal">
+          <button class="dossier-nav-btn active" data-hero="holland" type="button">
+            Tom Holland <span>(MCU / Earth-199999)</span>
+          </button>
+          <button class="dossier-nav-btn" data-hero="maguire" type="button">
+            Tobey Maguire <span>(Raimi / Earth-96283)</span>
+          </button>
+          <button class="dossier-nav-btn" data-hero="garfield" type="button">
+            Andrew Garfield <span>(Webb / Earth-120703)</span>
+          </button>
+          <button class="dossier-nav-btn" data-hero="all" type="button">
+            View All Stacked
+          </button>
+        </div>
+
+        <!-- Dossier Block 1: Tom Holland -->
+        <div class="spiderman-dossier-block dossier-holland active" id="dossier-holland">
+          <!-- Holland Header Banner -->
+          <div class="dossier-header-card reveal">
+            <div class="dossier-portrait-area">
+              <button class="character-image-trigger" type="button" data-character="holland" aria-label="Reveal Tom Holland's greatest loss">
+                <img src="assets/tom-holland-spider-man-on-set.webp" data-fallback="assets/tom-holland-spiderman.svg" alt="Tom Holland portraying Spider-Man" loading="lazy" />
+                <span class="image-upload-note">Upload: assets/tom-holland-spider-man-on-set.webp</span>
+                <span class="image-hover-prompt">Reveal the moment that changed everything.</span>
+              </button>
+              <small class="image-credit-field">Image credit: add the licensed photographer or source here.</small>
+              <h3>Tom Holland</h3>
+              <span>EARTH-199999 // MCU</span>
+            </div>
+
+            <div class="dossier-header-info">
+              <div class="dossier-meta-row">
+                <span class="dossier-badge">TECH-AUGMENTED PROTECTOR</span>
+                <span class="dossier-badge">HIGH SCHOOL TO COLLEGE</span>
+                <span class="dossier-badge">AVENGER VETERAN</span>
+              </div>
+              <h2>Peter Parker <em>// The Tech Prodigy</em></h2>
+              <p>
+                Introduced as a high school sophomore in Queens, this Peter Parker balances adolescence, science aptitude, and cosmic responsibility. Mentored by Tony Stark, he evolves from an eager apprentice reliant on high-tech support into an emotionally resilient hero who embraces the painful necessity of standing alone.
+              </p>
+              <div class="dossier-core-traits">
+                <div class="trait-item">
+                  <small>PRIMARY SUIT</small>
+                  <strong>Integrated Nano-Suit</strong>
+                </div>
+                <div class="trait-item">
+                  <small>CORE RELATIONSHIPS</small>
+                  <strong>Aunt May, MJ, Ned Leeds, Tony Stark</strong>
+                </div>
+                <div class="trait-item">
+                  <small>DEFINING TRAIT</small>
+                  <strong>Technological Adaptability & Selflessness</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Holland 3-Column Dossier Grid -->
+          <div class="dossier-sections-grid reveal">
+            <!-- Col 1: Strengths & Abilities -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>01</span> Strengths & Abilities</h3>
+              <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.75rem;">
+                *Ratings are comparative editorial approximations across films.
+              </p>
+              <div class="stat-meter-list">
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Superhuman Strength</span><b>88 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 88%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Combat Agility</span><b>93 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 93%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Peter-Tingle (Sense)</span><b>96 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 96%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Scientific Intelligence</span><b>95 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Tech Integration</span><b>99 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 99%;"></div></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Col 2: Equipment & Special Skills -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>02</span> Equipment & Skills</h3>
+              <div class="equipment-list">
+                <div class="equipment-item">
+                  <h4>Mechanical Web-Shooters</h4>
+                  <p>Wrist launchers firing synthetic polymer fluid with multiple modes (taser web, ricochet, rapid split).</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Stark & Iron Spider Nano-Armor</h4>
+                  <p>Titanium-mesh weave with retractable waldoes (mechanical arms), HUD scanning, and environmental life support.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>AI Voice Assistance (Karen)</h4>
+                  <p>Tactical audio interface analyzing trajectories, situational hazards, and weapon capabilities.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Anti-Serum Chemical Synthesis</h4>
+                  <p>Formulated cures for multiverse villains using laboratory bio-chemistry kits.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Col 3: Development & Timeline -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>03</span> Character Arc Timeline</h3>
+              <div class="character-dev-timeline">
+                <div class="dev-stage">
+                  <strong>Stage 1: Eager Apprentice</strong>
+                  <p>Craves approval from the Avengers; learns that being a hero isn't about the suit.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 2: Cosmic Trial</strong>
+                  <p>Faces Thanos in space; experiences the trauma of the Blip and Stark's demise.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 3: Tragic Crucible</strong>
+                  <p>Loses Aunt May to Green Goblin; faces the choice between vengeance and moral cure.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 4: Solitary Maturity</strong>
+                  <p>Allows his identity to be erased; embraces total anonymity to protect his loved ones.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Thematic Quote -->
+          <div class="thematic-quote-card reveal">
+            <blockquote>
+              “When you can do the things that I can, but you don’t, and then the bad things happen... they happen because of you.”
+            </blockquote>
+            <cite>— Peter Parker / Tom Holland, Earth-199999</cite>
+          </div>
+        </div>
+
+        <!-- Dossier Block 2: Tobey Maguire -->
+        <div class="spiderman-dossier-block dossier-maguire" id="dossier-maguire">
+          <!-- Maguire Header Banner -->
+          <div class="dossier-header-card reveal">
+            <div class="dossier-portrait-area">
+              <button class="character-image-trigger" type="button" data-character="maguire" aria-label="Reveal Tobey Maguire's greatest loss">
+                <img src="assets/mh-spider-men-1639676198.avif" data-fallback="assets/tobey-maguire-spiderman.svg" alt="Tobey Maguire portraying Spider-Man" loading="lazy" />
+                <span class="image-upload-note">Upload: assets/mh-spider-men-1639676198.avif</span>
+                <span class="image-hover-prompt">Reveal the moment that changed everything.</span>
+              </button>
+              <small class="image-credit-field">Image credit: add the licensed photographer or source here.</small>
+              <h3>Tobey Maguire</h3>
+              <span>EARTH-96283 // RAIMI TRILOGY</span>
+            </div>
+
+            <div class="dossier-header-info">
+              <div class="dossier-meta-row">
+                <span class="dossier-badge">CLASSIC FOUNDATIONAL HERO</span>
+                <span class="dossier-badge">COLLEGE TO ADULT PHOTOGRAPHER</span>
+                <span class="dossier-badge">VETERAN MULTIVERSE MENTOR</span>
+              </div>
+              <h2>Peter Parker <em>// The Classic Icon</em></h2>
+              <p>
+                The foundational cinematic Spider-Man whose story explores the agonizing friction between personal fulfillment and moral responsibility. Relying on organic webbing, unmatched physical durability, and Uncle Ben's guiding lesson, he endures immense poverty, lost love, and psychological doubt to remain New York's ultimate guardian.
+              </p>
+              <div class="dossier-core-traits">
+                <div class="trait-item">
+                  <small>PRIMARY SUIT</small>
+                  <strong>Classic Raised-Web Suit</strong>
+                </div>
+                <div class="trait-item">
+                  <small>CORE RELATIONSHIPS</small>
+                  <strong>Uncle Ben, Aunt May, Mary Jane, Harry Osborn</strong>
+                </div>
+                <div class="trait-item">
+                  <small>DEFINING TRAIT</small>
+                  <strong>Moral Fortitude, Organic Webs & Resilience</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maguire 3-Column Dossier Grid -->
+          <div class="dossier-sections-grid reveal">
+            <!-- Col 1: Strengths & Abilities -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>01</span> Strengths & Abilities</h3>
+              <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.75rem;">
+                *Ratings are comparative editorial approximations across films.
+              </p>
+              <div class="stat-meter-list">
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Superhuman Strength</span><b>94 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 94%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Physical Durability</span><b>98 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Organic Web Reliability</span><b>95 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Combat Experience</span><b>96 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 96%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Emotional Resilience</span><b>92 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 92%;"></div></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Col 2: Equipment & Special Skills -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>02</span> Equipment & Skills</h3>
+              <div class="equipment-list">
+                <div class="equipment-item">
+                  <h4>Organic Spinnerets</h4>
+                  <p>Biological glands in his wrists generating high-tensile organic webs without mechanical reload cartridges.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Classic Raised-Web Suit</h4>
+                  <p>Hand-sewn fabric with iconic silver 3D rubber webbing and expressive reflective lenses.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Symbiote Black Suit (Temporary)</h4>
+                  <p>Alien organism amplifying strength and aggression before Peter rejected its corrupting influence.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Train-Stopping Raw Power</h4>
+                  <p>Legendary physical feat anchoring an out-of-control elevated train using pure arm strength and webs.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Col 3: Development & Timeline -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>03</span> Character Arc Timeline</h3>
+              <div class="character-dev-timeline">
+                <div class="dev-stage">
+                  <strong>Stage 1: The Loss & The Motto</strong>
+                  <p>Wrestling pride leads to Uncle Ben's murder; internalizes the timeless lesson of responsibility.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 2: Existential Crisis</strong>
+                  <p>Loses powers due to psychological exhaustion; rediscovers his purpose to save the city from Doc Ock.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 3: Symbiote & Forgiveness</strong>
+                  <p>Falls to dark ego, overcomes hatred, reconciles with Harry Osborn, and forgives Sandman.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 4: Multiverse Elder Brother</strong>
+                  <p>Guides his alternate counterparts, preventing Holland from killing Osborn and finding inner peace.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Thematic Quote -->
+          <div class="thematic-quote-card reveal">
+            <blockquote>
+              “Whatever life holds in store for me, I will never forget these words: With great power comes great responsibility.”
+            </blockquote>
+            <cite>— Peter Parker / Tobey Maguire, Earth-96283</cite>
+          </div>
+        </div>
+
+        <!-- Dossier Block 3: Andrew Garfield -->
+        <div class="spiderman-dossier-block dossier-garfield" id="dossier-garfield">
+          <!-- Garfield Header Banner -->
+          <div class="dossier-header-card reveal">
+            <div class="dossier-portrait-area">
+              <button class="character-image-trigger" type="button" data-character="garfield" aria-label="Reveal Andrew Garfield's greatest loss">
+                <img src="assets/MV5BYzA4ZDUwYTItZDI5MS00ODBjLTk5MjktY2ViNjY2MGViZTBlXkEyXkFqcGc@._V1_QL75_UX500_CR0,0,500,281_.jpg" data-fallback="assets/andrew-garfield-spiderman.svg" alt="Andrew Garfield portraying Spider-Man" loading="lazy" />
+                <span class="image-upload-note">Upload: assets/MV5BYzA4ZDUwYTItZDI5MS00ODBjLTk5MjktY2ViNjY2MGViZTBlXkEyXkFqcGc@._V1_QL75_UX500_CR0,0,500,281_.jpg</span>
+                <span class="image-hover-prompt">Reveal the moment that changed everything.</span>
+              </button>
+              <small class="image-credit-field">Image credit: add the licensed photographer or source here.</small>
+              <h3>Andrew Garfield</h3>
+              <span>EARTH-120703 // WEBB UNIVERSE</span>
+            </div>
+
+            <div class="dossier-header-info">
+              <div class="dossier-meta-row">
+                <span class="dossier-badge">ACROBATIC DETECTIVE</span>
+                <span class="dossier-badge">MIDTOWN SCIENCE HIGH</span>
+                <span class="dossier-badge">REDEMPTION WARRIOR</span>
+              </div>
+              <h2>Peter Parker <em>// The Resilient Empath</em></h2>
+              <p>
+                An extraordinarily intelligent, fast-moving, and emotionally vulnerable Spider-Man driven by investigative curiosity and deep loyalty. Shattered by the tragic death of Gwen Stacy, he slipped into a dark, bitter period before regaining his hope and finding profound redemption across the multiverse.
+              </p>
+              <div class="dossier-core-traits">
+                <div class="trait-item">
+                  <small>PRIMARY SUIT</small>
+                  <strong>High-Stretch Large-Eye Suit</strong>
+                </div>
+                <div class="trait-item">
+                  <small>CORE RELATIONSHIPS</small>
+                  <strong>Gwen Stacy, Uncle Ben, Aunt May, Captain Stacy</strong>
+                </div>
+                <div class="trait-item">
+                  <small>DEFINING TRAIT</small>
+                  <strong>Acrobatic Momentum, Wit & Emotional Redemption</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Garfield 3-Column Dossier Grid -->
+          <div class="dossier-sections-grid reveal">
+            <!-- Col 1: Strengths & Abilities -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>01</span> Strengths & Abilities</h3>
+              <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.75rem;">
+                *Ratings are comparative editorial approximations across films.
+              </p>
+              <div class="stat-meter-list">
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Combat Agility</span><b>99 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 99%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Reflexes & Precision</span><b>97 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 97%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Bio-Chemical Science</span><b>96 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 96%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Improvisational Wit</span><b>98 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="stat-meter-item">
+                  <div class="stat-meter-labels"><span>Superhuman Strength</span><b>90 / 100</b></div>
+                  <div class="stat-track"><div class="stat-bar-fill" style="width: 90%;"></div></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Col 2: Equipment & Special Skills -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>02</span> Equipment & Skills</h3>
+              <div class="equipment-list">
+                <div class="equipment-item">
+                  <h4>Oscorp Bio-Cable Shooters</h4>
+                  <p>Custom mechanical launchers engineered using stolen Oscorp high-tensile bio-cables with digital pressure triggers.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Magnetized Battery Dampeners</h4>
+                  <p>Modified webbing and suit wiring insulated against Electro's lethal high-voltage discharges.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Large Curved Optical Lenses</h4>
+                  <p>Expansive tinted lenses designed for maximum peripheral vision during complex high-speed aerial acrobatics.</p>
+                </div>
+                <div class="equipment-item">
+                  <h4>Decay-Rate Algorithm Chemistry</h4>
+                  <p>Formulated cross-species genetics solutions and antidotes alongside Dr. Curt Connors.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Col 3: Development & Timeline -->
+            <article class="dossier-card">
+              <h3 class="dossier-card-title"><span>03</span> Character Arc Timeline</h3>
+              <div class="character-dev-timeline">
+                <div class="dev-stage">
+                  <strong>Stage 1: The Seeker of Truth</strong>
+                  <p>Investigates his parents' disappearance; transforms vigilante hunting into genuine protective duty.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 2: The Impossible Burden</strong>
+                  <p>Struggles with Captain Stacy's deathbed promise while deeply loving Gwen Stacy.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 3: The Clocktower Heartbreak</strong>
+                  <p>Fails to catch Gwen in time; enters a deep grief where he stops pulling his punches.</p>
+                </div>
+                <div class="dev-stage">
+                  <strong>Stage 4: Multiverse Healing</strong>
+                  <p>Catches a falling MJ in an alternate timeline, achieving emotional catharsis and reaffirming his hope.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Garfield Featured Scene: Gwen's Fall -->
+          <div class="dossier-video-embed reveal">
+            <div class="video-embed-label">
+              <span class="editorial-badge">CLASSIFIED FOOTAGE // EARTH-120703</span>
+              <h4>The Clocktower — Gwen's Fall Scene</h4>
+              <p>The moment that defined Andrew Garfield's Spider-Man — and shattered him forever.</p>
+            </div>
+            <div class="video-responsive-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/Wn4a1_xYy_Y"
+                title="The Amazing Spider-Man 2 (2014) - Gwen's Fall Scene | Movieclips"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+
+          <!-- Thematic Quote -->
+          <div class="thematic-quote-card reveal">
+            <blockquote>
+              “You have to promise me that you will hold on to hope. Keep it alive. We have to be greater than what we suffer.”
+            </blockquote>
+            <cite>— Gwen Stacy / Peter Parker / Andrew Garfield, Earth-120703</cite>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Emotional Loss Galleries: "The Moment Everything Changed" -->
+      <section class="section dark-section" id="losses">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <p class="kicker">02 / SACRIFICE & GRIEF ARCHIVES</p>
+            <h2>The Moment Everything <em>Changed</em></h2>
+          </div>
+          <span class="editorial-badge">SPOILER-PROTECTED LOSS DOSSIERS</span>
+        </div>
+
+        <p class="reveal" style="color:var(--muted); max-width:70ch; margin-bottom:2.5rem;">
+          The defining hallmark of every Spider-Man is not his superhuman strength, but his willingness to endure profound personal devastation and still choose to protect others.
+        </p>
+        <p class="spoiler-image-notice reveal">Spoiler Warning: Clicking a Spider-Man image reveals an important loss from that character's universe.</p>
+
+        <div class="loss-gallery-grid">
+          <!-- Loss Card 1: Tom Holland -->
+          <article class="loss-card reveal">
+            <div class="loss-card-image">
+              <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="Rain and city dusk symbolizing grief" loading="lazy" />
+              <span class="loss-image-tag">EARTH-199999 // THE APARTMENT RAIN</span>
+            </div>
+            <div class="loss-card-body">
+              <small>TOM HOLLAND / NO WAY HOME</small>
+              <h3>Loss of Aunt May & Forgotten Existence</h3>
+              
+              <div class="spoiler-container" id="spoilerHolland">
+                <button class="spoiler-overlay-btn" type="button" aria-expanded="false">
+                  <span>SPOILER CONTENT</span>
+                  <small>Click to decrypt loss record</small>
+                </button>
+                <div class="spoiler-content">
+                  <div class="spoiler-text-details">
+                    <div>
+                      <b>WHAT HAPPENED</b>
+                      <p>Peter loses Aunt May during the confrontation with Norman Osborn. Her final lesson reinforces the meaning of responsibility. Later, to prevent a multiverse collapse, Peter sacrifices his entire identity, causing MJ and Ned to forget he ever existed.</p>
+                    </div>
+                    <div>
+                      <b>PSYCHOLOGICAL IMPACT</b>
+                      <p>Peter briefly falls into bloodlust, nearly killing Osborn before Maguire's Spider-Man intervenes. He experiences absolute isolation in a tiny apartment, choosing not to re-introduce himself to protect his friends.</p>
+                    </div>
+                    <div>
+                      <b>FUTURE RESOLUTION</b>
+                      <p>He transforms from a high-tech protege into a pure, selfless street guardian sewing his own suit and answering police scanners alone.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Loss Card 2: Tobey Maguire -->
+          <article class="loss-card reveal">
+            <div class="loss-card-image">
+              <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80" alt="Dusk skyline of Manhattan" loading="lazy" />
+              <span class="loss-image-tag">EARTH-96283 // THE ALLEYWAY LESSON</span>
+            </div>
+            <div class="loss-card-body">
+              <small>TOBEY MAGUIRE / SPIDER-MAN 1 & 3</small>
+              <h3>Uncle Ben & The Death of Harry Osborn</h3>
+              
+              <div class="spoiler-container" id="spoilerMaguire">
+                <button class="spoiler-overlay-btn" type="button" aria-expanded="false">
+                  <span>SPOILER CONTENT</span>
+                  <small>Click to decrypt loss record</small>
+                </button>
+                <div class="spoiler-content">
+                  <div class="spoiler-text-details">
+                    <div>
+                      <b>WHAT HAPPENED</b>
+                      <p>Peter's choice to let a robber escape is followed by the loss of Uncle Ben. Years later, his best friend Harry Osborn gives his life to protect Peter during the final battle with Venom.</p>
+                    </div>
+                    <div>
+                      <b>PSYCHOLOGICAL IMPACT</b>
+                      <p>Uncle Ben's death anchors Peter's moral compass forever. Harry's sacrifice releases Peter from the poison of mutual hatred and teaches him the power of forgiveness.</p>
+                    </div>
+                    <div>
+                      <b>FUTURE RESOLUTION</b>
+                      <p>He resolves that no matter how difficult his personal life becomes, he will never abandon his duty to safeguard innocent lives.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Loss Card 3: Andrew Garfield -->
+          <article class="loss-card reveal">
+            <div class="loss-card-image">
+              <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Dark alley and broken glass aesthetic" loading="lazy" />
+              <span class="loss-image-tag">EARTH-120703 // THE CLOCKTOWER FALL</span>
+            </div>
+            <div class="loss-card-body">
+              <small>ANDREW GARFIELD / THE AMAZING SPIDER-MAN 2</small>
+              <h3>The Fall of Gwen Stacy</h3>
+              
+              <div class="spoiler-container" id="spoilerGarfield">
+                <button class="spoiler-overlay-btn" type="button" aria-expanded="false">
+                  <span>SPOILER CONTENT</span>
+                  <small>Click to decrypt loss record</small>
+                </button>
+                <div class="spoiler-content">
+                  <div class="spoiler-text-details">
+                    <div>
+                      <b>WHAT HAPPENED</b>
+                      <p>During the clocktower battle against Green Goblin, Gwen Stacy falls. Peter reaches her with a web, but cannot prevent the fatal impact.</p>
+                    </div>
+                    <div>
+                      <b>PSYCHOLOGICAL IMPACT</b>
+                      <p>Peter experiences immense, crushing guilt. He visits her grave daily in the freezing snow and enters a dark period where he stops holding back in combat.</p>
+                    </div>
+                    <div>
+                      <b>FUTURE RESOLUTION</b>
+                      <p>Catching MJ during the multiverse battle on Earth-199999 provides profound emotional redemption, letting him smile and believe in hope again.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 6. Interactive Multiverse Comparison Dashboard -->
+      <section class="section" id="comparison">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <p class="kicker">03 / COMPARATIVE ANALYTICS</p>
+            <h2>The Multiverse <em>Comparison</em></h2>
+          </div>
+          <span class="editorial-badge">INTERACTIVE COMPARISON MATRIX</span>
+        </div>
+
+        <div class="comparison-container reveal">
+          <!-- Hero Selection Bar -->
+          <div class="comparison-selection-bar">
+            <div>
+              <p style="font-family:'Barlow Condensed',sans-serif; font-size:1.4rem; text-transform:uppercase; font-weight:700;">
+                Select Spider-Men to Compare Side-by-Side:
+              </p>
+              <p style="font-size:0.8rem; color:var(--muted);">
+                Toggle any combination of the three heroes to compare their abilities and metrics.
+              </p>
+            </div>
+            
+            <div class="comparison-checkboxes">
+              <label class="comp-check-label" style="color:var(--holland-cyan);">
+                <input type="checkbox" id="checkHolland" checked /> Tom Holland (MCU)
+              </label>
+              <label class="comp-check-label" style="color:var(--maguire-gold);">
+                <input type="checkbox" id="checkMaguire" checked /> Tobey Maguire (Raimi)
+              </label>
+              <label class="comp-check-label" style="color:var(--garfield-neon);">
+                <input type="checkbox" id="checkGarfield" checked /> Andrew Garfield (Webb)
+              </label>
+            </div>
+          </div>
+
+          <!-- Comparison Metric Rows -->
+          <div class="comparison-matrix" id="comparisonMatrix">
+            <!-- Dynamically populated via script.js -->
+          </div>
+
+          <!-- Comparative Summary Highlights -->
+          <div class="comparison-summary-cards">
+            <div class="summary-card">
+              <small>MOST TECH-FOCUSED</small>
+              <strong style="color:var(--holland-cyan);">Tom Holland</strong>
+              <p>Stark AI, nanotech armor, modular web fluids, and holographic diagnostics.</p>
+            </div>
+            <div class="summary-card">
+              <small>MOST EXPERIENCED CLASSIC</small>
+              <strong style="color:var(--maguire-gold);">Tobey Maguire</strong>
+              <p>Decades of solo patrol, organic webs, and unmatched physical train-stopping durability.</p>
+            </div>
+            <div class="summary-card">
+              <small>MOST EMOTIONALLY DRIVEN</small>
+              <strong style="color:var(--garfield-neon);">Andrew Garfield</strong>
+              <p>Deep empathetic connection, hyper-kinetic agility, and profound redemption.</p>
+            </div>
+            <div class="summary-card">
+              <small>GREATEST PERSONAL SACRIFICE</small>
+              <strong style="color:var(--holland-cyan);">Tom Holland</strong>
+              <p>Erasing his existence from the minds of every friend and ally to save reality.</p>
+            </div>
+            <div class="summary-card">
+              <small>MOST DIVERSE ROGUES</small>
+              <strong style="color:var(--gold);">All Three</strong>
+              <p>From street crime to inter-dimensional incursions, every hero conquered his villains.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Searchable & Filterable Villain Archive -->
+      <section class="section dark-section" id="villains">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <p class="kicker">04 / MULTIVERSE ROGUES GALLERY</p>
+            <h2>Villain <em>Archive</em></h2>
+          </div>
+          <button class="counting-method-btn" id="openModalBtn" type="button">
+            View Counting Method ↗
+          </button>
+        </div>
+
+        <div class="villain-controls-bar reveal">
+          <!-- Search Box -->
+          <label class="search-box">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input id="villainSearch" type="search" placeholder="Search villain name, powers, or battle outcome..." aria-label="Search villain database" />
+          </label>
+
+          <!-- Multi-filters -->
+          <div class="villain-filter-groups">
+            <!-- Filter by Hero -->
+            <div class="filter-btn-group" role="group" aria-label="Filter by Spider-Man">
+              <button class="filter-btn active" data-vhero="all">All Rogues</button>
+              <button class="filter-btn" data-vhero="holland">Holland Rogues</button>
+              <button class="filter-btn" data-vhero="maguire">Maguire Rogues</button>
+              <button class="filter-btn" data-vhero="garfield">Garfield Rogues</button>
+            </div>
+
+            <!-- Filter by Category -->
+            <div class="filter-btn-group" role="group" aria-label="Filter by Threat Type">
+              <button class="filter-btn active" data-vcat="all">All Threats</button>
+              <button class="filter-btn" data-vcat="science">Science Mutation</button>
+              <button class="filter-btn" data-vcat="tech">Tech / Crime</button>
+              <button class="filter-btn" data-vcat="symbiote">Symbiote / Cosmic</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Villain Counter Banner -->
+        <div class="villain-counter-banner reveal">
+          <div class="villain-stats-pills">
+            <span class="v-pill">TOTAL DOCUMENTED: <b id="countTotal">12</b></span>
+            <span class="v-pill" style="color:var(--holland-cyan);">HOLLAND ROGUES: <b>5</b></span>
+            <span class="v-pill" style="color:var(--maguire-gold);">MAGUIRE ROGUES: <b>4</b></span>
+            <span class="v-pill" style="color:var(--garfield-neon);">GARFIELD ROGUES: <b>3</b></span>
+          </div>
+          <span style="font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--gold);">
+            *Includes primary and multiversal cinematic encounters.
+          </span>
+        </div>
+
+        <!-- Dynamic Villain Cards Grid -->
+        <div class="villain-archive-grid" id="villainGrid">
+          <!-- Dynamically populated via script.js -->
+        </div>
+      </section>
+
+      <!-- 8. Multiverse Media Gallery & Lightbox -->
+      <section class="section" id="gallery">
+        <div class="section-heading reveal">
+          <p class="kicker">05 / CINEMATIC INTEL</p>
+          <h2>Multiverse <em>Gallery</em></h2>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Dynamically populated via script.js -->
+        </div>
+      </section>
+
+      <!-- 9. Sources & Reference Distinctions Section -->
+      <section class="section dark-section" id="sources">
+        <div class="section-heading reveal">
+          <p class="kicker">06 / ARCHIVAL METHODOLOGY</p>
+          <h2>Sources & <em>Legal Notice</em></h2>
+        </div>
+
+        <p class="reveal" style="color:var(--muted); max-width:70ch;">
+          To ensure transparency, this archive clearly categorizes factual film continuity, production credits, and comparative editorial interpretations.
+        </p>
+
+        <div class="sources-grid reveal">
+          <div class="source-card">
+            <small>CATEGORY A</small>
+            <h4>Official Studio Continuity</h4>
+            <p>Direct plot facts and storylines sourced from Sony Pictures and Marvel Studios live-action theatrical films (2002–2021).</p>
+          </div>
+          <div class="source-card">
+            <small>CATEGORY B</small>
+            <h4>Film Production Credits</h4>
+            <p>Actors, directors (Jon Watts, Sam Raimi, Marc Webb), screenwriters, and production designers credited in release materials.</p>
+          </div>
+          <div class="source-card">
+            <small>CATEGORY C</small>
+            <h4>Reputable Reference Guides</h4>
+            <p>Universe designation numbers (Earth-199999, Earth-96283, Earth-120703) verified via official Marvel Handbooks and encyclopedia registries.</p>
+          </div>
+          <div class="source-card">
+            <small>CATEGORY D</small>
+            <h4>Editorial Interpretation</h4>
+            <p>Comparative numerical stat meters (strength, agility, tech) and thematic summaries are interpretive editorial analyses for celebratory fan enjoyment.</p>
+          </div>
+        </div>
+      </section>
     </main>
-    <footer class="site-footer"><div><a class="brand" href="#home"><span class="brand-mark">✦</span><span><small>ARCHIVE COMPLETE</small><strong>THE HERO ARCHIVE</strong></span></a><p>Designed as an interactive fictional database for the many stories of Spider-Man.</p></div><div class="footer-links"><a href="#home">Home</a><a href="#biography">Biography</a><a href="#powers">Powers</a><a href="#technology">Technology</a><a href="#timeline">Timeline</a></div><div class="footer-controls"><button id="motionToggle" type="button">Reduce motion</button><button id="contrastToggle" type="button">High contrast</button></div><p class="legal">Spider-Man and related characters are copyrighted intellectual property of their respective rights holders. This is an unofficial fictional fan experience.</p></footer>
+
+    <div class="loss-modal" id="lossModal" role="dialog" aria-modal="true" aria-labelledby="lossModalTitle" aria-hidden="true">
+      <div class="loss-modal-content">
+        <button class="modal-close-btn" id="lossModalClose" type="button" aria-label="Close loss story">✕</button>
+        <div class="loss-modal-image-wrap"><img id="lossModalImage" alt="" data-fallback="" /></div>
+        <p class="kicker" id="lossModalKicker">SPOILER CONTENT</p>
+        <h2 id="lossModalTitle"></h2>
+        <p class="loss-modal-context" id="lossModalContext"></p>
+        <p class="loss-modal-summary" id="lossModalSummary"></p>
+        <button class="button button-red" id="lossStoryToggle" type="button" aria-expanded="false">Read the Full Story <span>↘</span></button>
+        <div class="loss-modal-full-story" id="lossModalFullStory" hidden></div>
+      </div>
+    </div>
+
+    <!-- 10. Site Footer -->
+    <footer class="site-footer">
+      <div>
+        <a class="brand" href="#home">
+          <span class="brand-mark">✦</span>
+          <span>
+            <small>CLASSIFIED ARCHIVE COMPLETE</small>
+            <strong>THREE SPIDER-MEN</strong>
+          </span>
+        </a>
+        <p>A comparative multiverse dossier celebrating Tom Holland, Tobey Maguire, and Andrew Garfield. Designed as an educational, interactive tribute.</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Multiverse Sections</h4>
+        <a href="#dossier-holland">Tom Holland Dossier</a>
+        <a href="#dossier-maguire">Tobey Maguire Dossier</a>
+        <a href="#dossier-garfield">Andrew Garfield Dossier</a>
+        <a href="#losses">Emotional Loss Galleries</a>
+        <a href="#comparison">Multiverse Comparison</a>
+        <a href="#villains">Villain Archive</a>
+        <a href="missions.html">Spider-Missions Hub ↗</a>
+      </div>
+      
+      <div class="footer-controls">
+        <h4>Accessibility Controls</h4>
+        <button id="motionToggle" type="button">Reduce motion</button>
+        <button id="contrastToggle" type="button">High contrast</button>
+      </div>
+      
+      <p class="legal">
+        <span>Spider-Man, characters, and related indicia are © & ™ of Marvel Characters, Inc. and Sony Pictures Entertainment Inc. This is an unofficial, non-commercial fan encyclopedia and educational dossier.</span>
+        <span>2026 Multiverse Archive.</span>
+      </p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top-btn" id="backToTopBtn" type="button" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+    </button>
+
+    <!-- Counting Method Modal Dialog -->
+    <div class="modal-overlay" id="countingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-content">
+        <button class="modal-close-btn" id="closeModalBtn" type="button" aria-label="Close modal">✕</button>
+        <h3 id="modalTitle">Villain Counting Methodology</h3>
+        <p>
+          Villain counts across live-action Spider-Man cinema vary depending on how variants, ensemble teams, and brief cameos are cataloged. Our archive applies the following transparent criteria:
+        </p>
+        <ul>
+          <li><strong>Confirmed Major Villains:</strong> Primary antagonists who drive major film plot arcs with dedicated combat sequences (e.g., Green Goblin, Doc Ock, Vulture, Mysterio, Electro, Lizard, Venom).</li>
+          <li><strong>Multiverse Variants:</strong> Alternate-dimension villains appearing in crossover events (such as <em>No Way Home</em>) are counted under both their home universe and their active crossover combatant.</li>
+          <li><strong>Minor / Secondary Opponents:</strong> Secondary enforcers (e.g., Shocker, Tinkerer, Rhino's brief intro) are listed as minor encounters rather than standalone major headline threats.</li>
+          <li><strong>Cosmic / Ensemble Threats:</strong> Broad galactic antagonists (Thanos) fought in team settings are categorized as ensemble crossovers.</li>
+        </ul>
+        <p style="font-size:0.8rem; color:var(--gold);">
+          All counts are fully transparent to give visitors a clear, non-arbitrary view of each Spider-Man's rogues gallery.
+        </p>
+      </div>
+    </div>
+
+    <!-- Lightbox Modal Container -->
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image lightbox viewer">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+      <div class="lightbox-content">
+        <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Lightbox Visual" />
+        <div class="lightbox-caption" id="lightboxCaption">
+          <h3>Image Title</h3>
+          <p>Image description details</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="shared-audio.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

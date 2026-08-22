@@ -1,0 +1,631 @@
+/* ==========================================================================
+   SPIDER-MAN: MISSIONS HUB DASHBOARD STYLES
+   ========================================================================== */
+
+/* Active Hero Colors & Theme Modifiers */
+:root {
+  --peter-accent: #e52f43;
+  --peter-glow: rgba(229, 47, 67, 0.4);
+  
+  --miles-accent: #e4b76e;
+  --miles-glow: rgba(228, 183, 110, 0.4);
+  
+  --gwen-accent: #e040fb;
+  --gwen-glow: rgba(224, 64, 251, 0.4);
+  
+  --active-hero-color: var(--peter-accent);
+  --active-hero-glow: var(--peter-glow);
+}
+
+/* Base Body Modifications for Dashboard */
+body.hero-peter {
+  --active-hero-color: var(--peter-accent);
+  --active-hero-glow: var(--peter-glow);
+}
+
+body.hero-miles {
+  --active-hero-color: var(--miles-accent);
+  --active-hero-glow: var(--miles-glow);
+}
+
+body.hero-gwen {
+  --active-hero-color: var(--gwen-accent);
+  --active-hero-glow: var(--gwen-glow);
+}
+
+/* ==========================================================================
+   1. Dashboard Welcome & Live Stats
+   ========================================================================== */
+
+.terminal-intro {
+  padding-top: 9rem;
+}
+
+.terminal-banner {
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, rgba(13, 23, 38, 0.7), rgba(5, 7, 10, 0.95));
+  padding: 3rem;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.terminal-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--active-hero-color);
+  box-shadow: 0 0 15px var(--active-hero-glow);
+  transition: background var(--transition-normal);
+}
+
+.banner-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--cyan);
+  border: 1px solid var(--line-glow);
+  padding: 0.35rem 0.75rem;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.25rem;
+  background: rgba(110, 225, 232, 0.05);
+}
+
+.terminal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 1rem;
+}
+
+.terminal-title span {
+  color: var(--active-hero-color);
+  transition: color var(--transition-normal);
+}
+
+.terminal-desc {
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+/* Stats Cards Grid */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.d-stat-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 1.5rem;
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.d-stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.d-stat-card small {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.d-stat-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--active-hero-color);
+  transition: color var(--transition-normal);
+}
+
+.d-stat-card p {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   2. Spider-Hero Selector Panel
+   ========================================================================== */
+
+.hero-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.hero-selector-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 2.25rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  backdrop-filter: blur(10px);
+}
+
+.hero-selector-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cyan);
+}
+
+/* Active assigned state styling */
+.hero-selector-card.active {
+  border-color: var(--active-hero-color);
+  background: linear-gradient(180deg, var(--panel) 0%, rgba(20, 30, 45, 0.4) 100%);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px var(--active-hero-glow);
+}
+
+.hero-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Stylized placeholder graphics for avatar circles */
+.avatar-peter {
+  background-image: radial-gradient(circle, #e52f43 0%, #0d1726 100%);
+  border-color: var(--peter-accent);
+}
+
+.avatar-miles {
+  background-image: radial-gradient(circle, #e4b76e 0%, #151a22 100%);
+  border-color: var(--miles-accent);
+}
+
+.avatar-gwen {
+  background-image: radial-gradient(circle, #e040fb 0%, #081a28 100%);
+  border-color: var(--gwen-accent);
+}
+
+.hero-sel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-grow: 1;
+}
+
+.hero-sel-info small {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.hero-sel-info h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero-sel-info p {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.active-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+.hero-selector-card.active .active-badge {
+  color: var(--active-hero-color);
+  font-weight: 700;
+  text-shadow: 0 0 8px var(--active-hero-glow);
+}
+
+/* ==========================================================================
+   3. Search & Filter Controls
+   ========================================================================== */
+
+.dashboard-search-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-search-row .search-box {
+  width: min(520px, 100%);
+}
+
+.status-filters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.status-btn {
+  border: 1px solid var(--line);
+  background: rgba(10, 14, 20, 0.6);
+  color: var(--muted);
+  padding: 0.5rem 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+}
+
+.status-btn:hover,
+.status-btn.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+/* ==========================================================================
+   4. Missions Grid & Mission Cards
+   ========================================================================== */
+
+.missions-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.mission-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 4px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
+}
+
+.mission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--line);
+  transition: background var(--transition-normal);
+}
+
+.mission-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--active-hero-color);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.mission-card.completed {
+  border-color: var(--cyan);
+}
+
+.mission-card.completed::before {
+  background: var(--cyan);
+}
+
+.mission-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.diff-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.diff-badge.street {
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.diff-badge.city {
+  border: 1px solid var(--red);
+  color: var(--red);
+}
+
+.diff-badge.multiverse {
+  border: 1px solid var(--gwen-accent);
+  color: var(--gwen-accent);
+}
+
+.hero-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: grid;
+  place-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: var(--cyan);
+  border: 1px solid var(--line-glow);
+}
+
+.mission-card-body h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.mission-card-body p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* Custom Checkbox Checklist */
+.objective-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  padding: 1.25rem 0;
+}
+
+.objective-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--paper);
+  position: relative;
+  user-select: none;
+}
+
+.objective-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Custom check indicator box */
+.check-box {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--line);
+  background: rgba(5,7,10,0.6);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.objective-item:hover input ~ .check-box {
+  border-color: var(--active-hero-color);
+}
+
+.objective-item input:checked ~ .check-box {
+  background: var(--active-hero-color);
+  border-color: var(--active-hero-color);
+}
+
+/* Check mark svg inside box */
+.check-box::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--ink);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.objective-item input:checked ~ .check-box::after {
+  display: block;
+}
+
+/* Cross-off text on check */
+.objective-text {
+  transition: color var(--transition-fast), text-decoration var(--transition-fast);
+}
+
+.objective-item input:checked ~ .objective-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+/* Card Progress Meter */
+.mission-card-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+.progress-info span:last-child {
+  color: var(--cyan);
+}
+
+.mission-card.completed .progress-info span:last-child {
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+/* Reward Badge */
+.reward-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  background: rgba(228, 183, 110, 0.04);
+  border: 1px solid rgba(228, 183, 110, 0.1);
+  padding: 0.6rem 0.85rem;
+  color: var(--gold);
+}
+
+.reward-badge b {
+  color: var(--paper);
+}
+
+/* Mission Claim Rewards Button */
+.claim-btn {
+  width: 100%;
+  padding: 0.85rem;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px dashed var(--line);
+  background: transparent;
+  color: var(--muted);
+  transition: all var(--transition-fast);
+}
+
+.mission-card.completed .claim-btn {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.mission-card.completed .claim-btn:hover {
+  background: #a2f2f7;
+  border-color: #a2f2f7;
+  box-shadow: 0 0 20px var(--cyan);
+}
+
+.mission-card.claimed .claim-btn {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(142, 158, 169, 0.3);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   5. General Layout & Back Button
+   ========================================================================== */
+
+.back-home-cta-box {
+  margin-top: 5rem;
+  border-top: 1px solid var(--line);
+  padding-top: 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.back-home-cta-box p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   6. Responsive Styling Media Queries
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .missions-dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hero-selector-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .hero-selector-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .terminal-banner {
+    padding: 2rem;
+  }
+  
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .missions-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-search-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .status-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+

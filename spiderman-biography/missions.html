@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Spider-Man Missions Hub. Track police scanner alerts, select active spider-heroes, complete objectives, and unlock suit rewards." />
+    <title>SPIDER-MAN // MISSIONS HUB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="missions.css" />
+  </head>
+  <body>
+    <!-- 1. Themed Loading Screen -->
+    <div class="loading-screen" id="loadingScreen" aria-live="polite">
+      <svg class="loading-spider" viewBox="0 0 100 100">
+        <path d="M50,15 L50,85 M20,50 L80,50 M30,30 L70,70 M30,70 L70,30 M50,30 C35,30 35,70 50,70 C65,70 65,30 50,30 Z M50,40 C43,40 43,60 50,60 C57,60 57,40 50,40 Z M30,30 C15,35 15,65 30,70 M70,30 C85,35 85,65 70,70" />
+      </svg>
+      <div class="loading-text">Booting Missions Terminal...</div>
+    </div>
+
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="web-overlay" aria-hidden="true"></div>
+
+    <!-- 2. Header Navigation -->
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Spider-Man hero archive home">
+        <span class="brand-mark">✦</span>
+        <span>
+          <small>FILE 002 / SECURE HUB</small>
+          <strong>MISSIONS TERMINAL</strong>
+        </span>
+      </a>
+      
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">
+        MENU
+      </button>
+      
+      <nav id="mainNav" class="main-nav" aria-label="Primary navigation">
+        <a href="index.html">Hero Archive</a>
+        <a href="#dashboard" class="active">Missions Dashboard</a>
+        <a href="#heroSelect">Active Patrol</a>
+        <a href="#precinctAlerts">Precinct Alerts</a>
+        <a href="index.html#contact">Send S.O.S</a>
+      </nav>
+
+      <!-- Dynamic Audio Controls (Synced with Home) -->
+      <div class="sound-controls">
+        <button id="soundToggle" class="sound-btn" type="button" aria-expanded="false" aria-controls="soundPanel" aria-label="Audio settings">
+          <svg id="volumeIcon" viewBox="0 0 24 24">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM19 12c0 3.28-2.16 6.07-5.14 7.06v2.02c4.09-1 7.14-4.66 7.14-9.08s-3.05-8.08-7.14-9.08v2.02c2.98.99 5.14 3.78 5.14 7.06zM3 9v6h4l5 5V4L7 9H3zm7 3.5v3.13l-2.74-2.74c-.2-.2-.46-.39-.76-.39H5v-3h1.5c.3 0 .56-.19.76-.39L10 8.37v4.13z"/>
+          </svg>
+          <span id="soundBtnText">Sound On</span>
+        </button>
+        
+        <div class="sound-panel" id="soundPanel" hidden>
+          <label>Master volume 
+            <input id="masterVolume" type="range" min="0" max="100" value="35" aria-label="Master volume control"/>
+          </label>
+          <label>Interface effects 
+            <input id="effectsVolume" type="range" min="0" max="100" value="80" aria-label="Interface effects volume"/>
+          </label>
+          <label class="switch-row">Mute all audio
+            <input id="muteAudio" type="checkbox" aria-label="Mute all audio check"/>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-main" id="dashboard">
+      <!-- 3. Dashboard Welcome & Live Stats -->
+      <section class="section terminal-intro">
+        <div class="terminal-banner reveal">
+          <div class="banner-badge">DISPATCH SCANNER ONLINE</div>
+          <h1 class="terminal-title">EMERGENCY NET <span>NYC-616</span></h1>
+          <p class="terminal-desc">
+            Monitor real-time NYPD radio frequencies, isolate bio-chemical threats, and organize coordinate response vectors across boroughs.
+          </p>
+        </div>
+
+        <!-- Dashboard Stats Cards -->
+        <div class="dashboard-stats reveal">
+          <div class="d-stat-card">
+            <small>PATROL STATUS</small>
+            <h3 id="statTotalCompleted">0 / 5</h3>
+            <p>Missions Complete</p>
+          </div>
+          <div class="d-stat-card">
+            <small>NYPD RADIO ALERTS</small>
+            <h3 id="statActiveAlerts">3</h3>
+            <p>Pending Threats</p>
+          </div>
+          <div class="d-stat-card">
+            <small>XP REWARDS</small>
+            <h3 id="statTotalXP">0</h3>
+            <p>Total XP Claimed</p>
+          </div>
+          <div class="d-stat-card">
+            <small>MULTIVERSE SCALE</small>
+            <h3>1.2X</h3>
+            <p>Threat Index Multiplier</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Spider-Hero Selector Panel -->
+      <section class="section dark-section" id="heroSelect">
+        <div class="section-heading reveal">
+          <p class="kicker">01 / TEAM DISPATCH</p>
+          <h2>Assign <em>Spider-Hero</em></h2>
+        </div>
+
+        <div class="hero-selector-grid">
+          <!-- Card 1: Tom Holland -->
+          <article class="hero-selector-card active reveal" data-hero="holland" tabindex="0">
+            <div class="hero-avatar avatar-holland"></div>
+            <div class="hero-sel-info">
+              <small>DESIGNATION: EARTH-199999 (MCU)</small>
+              <h3>Tom Holland</h3>
+              <p>Stark nanotech integration, multi-web shooters, tactical AI overlays, and cosmic experience.</p>
+              <span class="active-badge">ACTIVE ON DUTY</span>
+            </div>
+          </article>
+
+          <!-- Card 2: Tobey Maguire -->
+          <article class="hero-selector-card reveal" data-hero="maguire" tabindex="0">
+            <div class="hero-avatar avatar-maguire"></div>
+            <div class="hero-sel-info">
+              <small>DESIGNATION: EARTH-96283 (RAIMI)</small>
+              <h3>Tobey Maguire</h3>
+              <p>Organic spinneret webbing, extreme train-stopping durability, and decades of classic veteran solo combat.</p>
+              <span class="active-badge">ASSIGN HERO</span>
+            </div>
+          </article>
+
+          <!-- Card 3: Andrew Garfield -->
+          <article class="hero-selector-card reveal" data-hero="garfield" tabindex="0">
+            <div class="hero-avatar avatar-garfield"></div>
+            <div class="hero-sel-info">
+              <small>DESIGNATION: EARTH-120703 (WEBB)</small>
+              <h3>Andrew Garfield</h3>
+              <p>Hyper-kinetic acrobatics, bio-cable launchers, high-voltage battery dampeners, and investigative wit.</p>
+              <span class="active-badge">ASSIGN HERO</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 5. Search, Filter & Missions Grid -->
+      <section class="section" id="precinctAlerts">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <p class="kicker">02 / EMERGENCY BAND</p>
+            <h2>Borough <em>Alerts</em></h2>
+          </div>
+          
+          <div class="dashboard-controls">
+            <!-- Difficulty Filters -->
+            <div class="filter-row" role="group" aria-label="Filter missions by difficulty">
+              <button class="filter-btn active" data-difficulty="all">All Levels</button>
+              <button class="filter-btn" data-difficulty="street">Street Level</button>
+              <button class="filter-btn" data-difficulty="city">City Threat</button>
+              <button class="filter-btn" data-difficulty="multiverse">Multiversal</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-search-row reveal">
+          <label class="search-box">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input id="missionSearch" type="search" placeholder="Filter alerts by key words (e.g. oscorp, bridge, shelter)" aria-label="Search missions database" />
+          </label>
+          
+          <div class="status-filters">
+            <button class="status-btn active" data-status="all">All Alerts</button>
+            <button class="status-btn" data-status="active">Active</button>
+            <button class="status-btn" data-status="completed">Completed</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Missions Grid -->
+        <div class="missions-dashboard-grid" id="missionsGrid">
+          <!-- Dynamic rendering via missions.js -->
+        </div>
+
+        <div class="back-home-cta-box reveal">
+          <p>Task complete? Re-route logs to the central database archive.</p>
+          <a href="index.html" class="button button-ghost">
+            <span>←</span> Back to Central Archive
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- 6. Footer -->
+    <footer class="site-footer">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="brand-mark">✦</span>
+          <span>
+            <small>MISSIONS TERMINAL</small>
+            <strong>THE HERO ARCHIVE</strong>
+          </span>
+        </a>
+        <p>A fully integrated response matrix for coordinate operations. Logged in Earth-616.</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation Links</h4>
+        <a href="index.html#home">Central Archive Home</a>
+        <a href="index.html#biography">Spider-Man Biography</a>
+        <a href="index.html#powers">Biological Powers</a>
+        <a href="index.html#technology">Field Engineering</a>
+        <a href="#dashboard">Top of Dashboard</a>
+      </div>
+      
+      <div class="footer-controls">
+        <h4>User Access controls</h4>
+        <button id="motionToggle" type="button">Reduce motion</button>
+        <button id="contrastToggle" type="button">High contrast</button>
+      </div>
+      
+      <p class="legal">
+        <span>Spider-Man and related characters are copyrighted intellectual property of their respective rights holders. This is an unofficial fictional fan experience.</span>
+        <span>2026 Emergency Mission Dispatch.</span>
+      </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="shared-audio.js"></script>
+    <script src="missions.js"></script>
+  </body>
+</html>
+
