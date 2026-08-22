@@ -7,9 +7,9 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "name": "Launch Spider-Man biography in Chrome",
+            "url": "file://${workspaceFolder}/spiderman-biography/index.html",
+            "webRoot": "${workspaceFolder}/spiderman-biography"
         }
     ]
 }

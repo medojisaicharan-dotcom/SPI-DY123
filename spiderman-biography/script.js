@@ -1,327 +1,72 @@
-﻿const characters = [
-  {
-    id: 'tobey',
-    name: 'Tobey Maguire',
-    identity: 'Peter Parker',
-    universe: 'Earth-96283',
-    tagline: 'The original wound never truly healed.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80',
-    video: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    summary: 'He is the original live-action Spider-Man, carrying the burden of responsibility with a quiet, devastating sincerity that shaped a whole generation of Spider-Man stories.',
-    bio: 'Tobey Maguire’s Peter Parker begins as a lonely, awkward young man and matures into a deeply devoted hero shaped by loss and duty. His journey is rooted in sorrow, affection, and sacrifice—showing that true strength is not the absence of fear, but the decision to keep going anyway.',
-    origin: 'After a life-changing science accident and the loss of his uncle, Peter learns the most painful lesson of all: with great power comes great responsibility.',
-    traits: ['Emotionally grounded', 'Brave under pressure', 'Devoted to family', 'Incredibly self-sacrificing'],
-    stats: [
-      { label: 'Resilience', value: 94 },
-      { label: 'Spider-Sense', value: 88 },
-      { label: 'Strength', value: 90 },
-      { label: 'Emotional Depth', value: 96 }
-    ],
-    weaknesses: ['Burdens too much alone', 'Physical pain can overwhelm him', 'Trusts too deeply at times'],
-    lovedOnes: [
-      { name: 'Mary Jane Watson', relation: 'romantic counterpart', icon: '💗' },
-      { name: 'Aunt May', relation: 'guardian and emotional anchor', icon: '🕊️' },
-      { name: 'Uncle Ben', relation: 'moral foundation', icon: '🌙' }
-    ],
-    secret: 'A hidden signal reveals: the first Spider-Man was never just a hero. He was the first memory.'
-  },
-  {
-    id: 'garfield',
-    name: 'Andrew Garfield',
-    identity: 'Peter Parker',
-    universe: 'Earth-120703',
-    tagline: 'A restless heart trying not to become a machine.',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80',
-    video: 'https://www.w3schools.com/html/movie.mp4',
-    summary: 'Andrew Garfield’s Peter Parker is emotionally intense, rebellious, and deeply human, carrying grief in a way that makes the character feel contemporary and alive.',
-    bio: 'Peter Parker here is shaped by loss, curiosity, and a desperate urge to understand his father, his purpose, and the burden of being a hero. He is witty and deeply feeling, walking the line between self-doubt and fierce conviction.',
-    origin: 'In a modernized origin story, Peter becomes Spider-Man after discovering the truth about his parents and accepting the danger his abilities bring to the people he loves.',
-    traits: ['Analytical', 'Intense', 'Heartfelt', 'Driven by purpose'],
-    stats: [
-      { label: 'Mobility', value: 92 },
-      { label: 'Reflexes', value: 95 },
-      { label: 'Agility', value: 96 },
-      { label: 'Emotional Intensity', value: 90 }
-    ],
-    weaknesses: ['Overthinks decisions', 'Self-destructive under pressure', 'Feels isolated from true belonging'],
-    lovedOnes: [
-      { name: 'Gwen Stacy', relation: 'deep emotional bond', icon: '💫' },
-      { name: 'Aunt May', relation: 'family source of calm', icon: '🌌' },
-      { name: 'Captain Stacy', relation: 'legacy of duty', icon: '🛡️' }
-    ],
-    secret: 'The second Spider-Man carried a signal hidden in grief: the web is not built to save the world—it is built to keep people alive.'
-  },
-  {
-    id: 'holland',
-    name: 'Tom Holland',
-    identity: 'Peter Parker',
-    universe: 'Earth-199999',
-    tagline: 'The city is loud, but the heart is louder.',
-    image: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=1200&q=80',
-    video: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-    summary: 'Tom Holland’s Spider-Man is the most modern, energetic, and globally connected version: a young hero with humor, empathy, and an urgent sense of purpose.',
-    bio: 'This Peter Parker is a young man caught between adolescence and heroism. He moves through a world where the stakes are global, yet his instincts remain deeply personal—rooted in friendship, responsibility, and the desire to protect the people around him.',
-    origin: 'His story begins amid the Avengers and evolves through loss, mentorship, and the realization that being Spider-Man is not about being the strongest, but being the most human.',
-    traits: ['Playful', 'Quick-thinking', 'Adaptable', 'Emotionally loyal'],
-    stats: [
-      { label: 'Speed', value: 94 },
-      { label: 'Teamwork', value: 93 },
-      { label: 'Innovation', value: 98 },
-      { label: 'Heroic Drive', value: 92 }
-    ],
-    weaknesses: ['Young and impulsive', 'Overextends to protect others', 'Struggles with burden of expectation'],
-    lovedOnes: [
-      { name: 'MJ', relation: 'deep friendship and love', icon: '💙' },
-      { name: 'Ned Leeds', relation: 'trusted friend', icon: '🧠' },
-      { name: 'Tony Stark', relation: 'mentor and father figure', icon: '⚙️' }
-    ],
-    secret: 'The third signal is not fear—it is hope. The web remembers every promise, even the ones no one keeps.'
-  }
+const origin = [
+  ['1940s', 'The beginning', 'A Queens childhood shaped by Aunt May, Uncle Ben, and a restless scientific mind.'],
+  ['THE BITE', 'A changed biology', 'A radioactive spider bite unlocks strength, agility, wall-crawling, and a new responsibility.'],
+  ['THE LOSS', 'The lesson', 'Peter learns that power without responsibility is just another kind of weakness.'],
+  ['THE MASK', 'A symbol emerges', 'A homemade suit gives a private promise a public shape: protect the city.'],
+  ['TODAY', 'The ongoing story', 'Every new threat tests the same choice: help first, explain later.']
 ];
+const powers = [['STRENGTH', 'Lift impossible weight.', 91], ['AGILITY', 'Move through the city in three dimensions.', 97], ['REFLEXES', 'React before danger arrives.', 96], ['WALL-CRAWLING', 'Adhere to almost any surface.', 99], ['HEALING', 'Recover faster than a normal human.', 76], ['ENDURANCE', 'Keep moving after the impossible hit.', 89], ['COMBAT', 'Turn momentum into a language.', 88], ['SCIENCE', 'Build the solution from what is available.', 94]];
+const tech = [['01', 'Web-shooters', 'Mechanical launchers designed by Peter, with interchangeable cartridges for different web types.', '08'], ['02', 'Advanced lenses', 'Optical protection, targeting overlays, and expressive eye shapes. Entirely fictional in-universe tech.', '12'], ['03', 'Spider-tracers', 'Small signal devices that make a moving city searchable.', '24'], ['04', 'Suit materials', 'Layered fabric, impact distribution, and a recognizable red-and-blue visual language.', '07']];
+const allies = [['AUNT MAY', 'THE ANCHOR', 'The person who turns a hidden life into a human one.', 'Family / guardian'], ['UNCLE BEN', 'THE CONSTANT', 'His lesson becomes the moral architecture beneath every swing.', 'Family / legacy'], ['MARY JANE', 'THE WITNESS', 'A relationship built on honesty, courage, and seeing the person beneath the mask.', 'Partner / confidant'], ['MILES MORALES', 'THE LEGACY', 'A second voice proves the symbol was never owned by one person.', 'Spider-hero / ally']];
+const villains = [['GREEN GOBLIN', 'science', 'A brilliant mind bent by power, obsession, and a personal connection to Peter.'], ['DOCTOR OCTOPUS', 'science', 'A gifted engineer whose ambition turns innovation into a threat.'], ['VENOM', 'cosmic', 'An alien symbiote and its host make identity itself the battleground.'], ['MYSTERIO', 'crime', 'A master of illusion who weaponizes perception and public trust.'], ['VULTURE', 'crime', 'A salvager who turns advanced technology into airborne predation.'], ['ELECTRO', 'cosmic', 'Living energy, unstable power, and a grudge against the world.'], ['SANDMAN', 'cosmic', 'A desperate man whose body becomes an ever-shifting weapon.'], ['KINGPIN', 'crime', 'Organized power that treats the city like property.']];
+const universes = [['EARTH-616', 'Peter Parker', 'The classic continuity: science, grief, humor, and responsibility.'], ['EARTH-1610', 'Miles Morales', 'A Brooklyn successor proves the mask can belong to anyone.'], ['EARTH-65', 'Gwen Stacy', 'A drummer, detective, and hero carrying a different kind of loss.'], ['EARTH-928', 'Miguel O’Hara', 'A future Spider-Man balancing biology, systems, and destiny.'], ['EARTH-42', 'The Prowler', 'A fractured reality where the symbol takes a darker route.']];
+const story = [['01', 'The origin', 'A science trip, a spider bite, and an experiment in what responsibility means.'], ['02', 'The city learns his name', 'The mask becomes a promise made in public, one rescue at a time.'], ['03', 'The cost of saving everyone', 'Personal sacrifice turns heroism from a fantasy into a daily decision.'], ['04', 'Across the spider-verse', 'Alternate lives reveal that courage is a pattern, not a single face.'], ['05', 'The legacy continues', 'The web expands beyond one borough, one timeline, and one generation.']];
 
-const lovedMoments = [
-  { title: 'Mary Jane', subtitle: 'A choice that changed everything', thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80' },
-  { title: 'The Promise', subtitle: 'Worth carrying into the dark', thumb: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80' },
-  { title: 'A New Dawn', subtitle: 'The signal grows stronger', thumb: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80' }
-];
+const $ = (selector) => document.querySelector(selector);
+const render = (selector, template) => { $(selector).innerHTML = template; };
 
-const fileCards = [
-  { title: 'Threat Index', value: '92%', note: 'The pattern is spreading through memory.' },
-  { title: 'Signal Noise', value: '17%', note: 'Residual distortion from fractured timelines.' },
-  { title: 'Archive Status', value: 'LIVE', note: 'The trace has become self-aware.' }
-];
+const audioManager = (() => {
+  let context;
+  let lastPlayed = 0;
+  const settings = JSON.parse(localStorage.getItem('spiderArchiveSound') || '{"enabled":true,"master":35,"effects":80,"ambient":0}');
+  const tones = { navigation: [520, 760], biography: [220, 440], powers: [330, 880], technology: [150, 620], web: [720, 1180], allies: [523, 784], villains: [110, 165], universe: [440, 990], timeline: [390, 580], search: [600, 740], open: [280, 620], close: [420, 250], cta: [300, 680], error: [160, 110] };
+  const save = () => localStorage.setItem('spiderArchiveSound', JSON.stringify(settings));
+  const ensureContext = () => { if (!context) context = new (window.AudioContext || window.webkitAudioContext)(); if (context.state === 'suspended') context.resume(); return context; };
+  const play = (type = 'navigation') => {
+    if (!settings.enabled || settings.master === 0 || settings.effects === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const now = performance.now(); if (now - lastPlayed < 90) return; lastPlayed = now;
+    try { const audio = ensureContext(); const gain = audio.createGain(); const oscillator = audio.createOscillator(); const [start, end] = tones[type] || tones.navigation; const volume = (settings.master / 100) * (settings.effects / 100) * .07; oscillator.type = type === 'villains' || type === 'error' ? 'sine' : 'triangle'; oscillator.frequency.setValueAtTime(start, audio.currentTime); oscillator.frequency.exponentialRampToValueAtTime(end, audio.currentTime + .12); gain.gain.setValueAtTime(.001, audio.currentTime); gain.gain.exponentialRampToValueAtTime(volume, audio.currentTime + .015); gain.gain.exponentialRampToValueAtTime(.001, audio.currentTime + .17); oscillator.connect(gain).connect(audio.destination); oscillator.start(); oscillator.stop(audio.currentTime + .18); } catch { /* Audio is optional enhancement. */ }
+  };
+  const set = (key, value) => { settings[key] = value; save(); };
+  return { play, set, get: () => settings };
+})();
 
-const secretClues = [
-  'The first web was personal. The second was mournful. The third was a promise.',
-  'Every lifetime carries a hidden fracture that keeps the web alive.',
-  'The archive did not create the signal. It only learned how to hear it.'
-];
+const soundToggle = $('#soundToggle');
+const soundPanel = $('#soundPanel');
+const soundSettings = [['masterVolume', 'master'], ['effectsVolume', 'effects'], ['ambientVolume', 'ambient']];
+soundToggle.addEventListener('click', () => { const enabled = !audioManager.get().enabled; audioManager.set('enabled', enabled); soundToggle.textContent = enabled ? 'Sound off' : 'Sound on'; if (enabled) audioManager.play('navigation'); soundPanel.hidden = !soundPanel.hidden; soundToggle.setAttribute('aria-expanded', !soundPanel.hidden); });
+soundSettings.forEach(([id, key]) => { const input = $(`#${id}`); input.value = audioManager.get()[key]; input.addEventListener('input', () => audioManager.set(key, Number(input.value))); });
+$('#muteAudio').checked = !audioManager.get().enabled;
+$('#muteAudio').addEventListener('change', (event) => { const enabled = !event.target.checked; audioManager.set('enabled', enabled); soundToggle.textContent = enabled ? 'Sound off' : 'Sound on'; if (enabled) audioManager.play('navigation'); });
+soundToggle.textContent = audioManager.get().enabled ? 'Sound off' : 'Sound on';
+document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => audioManager.play(link.hash.slice(1) === 'universes' ? 'universe' : link.hash.slice(1))));
+render('#originTimeline', origin.map(([year, title, text]) => `<article class="origin-item reveal"><strong>${year}</strong><h3>${title}</h3><p>${text}</p></article>`).join(''));
+render('#powerGrid', powers.map(([title, text, value], index) => `<article class="power-card reveal"><span>0${index + 2}</span><h3>${title}</h3><p>${text}</p><div class="meter"><i style="--value:${value}%"></i></div><small>${value} / 100</small></article>`).join(''));
+render('#techList', tech.map(([number, title, text, value]) => `<article class="tech-item reveal"><span>${number}</span><div><h3>${title}</h3><p>${text}</p></div><b>${value}</b></article>`).join(''));
+render('#allyGrid', allies.map(([name, role, text, detail]) => `<article class="profile-card reveal" tabindex="0"><small>${role}</small><h3>${name}</h3><p>${text}</p><p class="expanded"><b>RELATIONSHIP FILE</b><br />${detail}. Click again to collapse.</p></article>`).join(''));
+render('#threatGrid', villains.map(([name, category, text]) => `<article class="threat-card reveal" data-category="${category}"><small>${category} / THREAT RECORD</small><h3>${name}</h3><p>${text}</p><b>connection: adversarial</b></article>`).join(''));
+render('#universeGrid', universes.map(([universe, identity, text]) => `<article class="universe-card reveal" data-search="${universe} ${identity} ${text}"><small>${universe}</small><h3>${identity}</h3><p>${text}</p></article>`).join(''));
+render('#storyline', story.map(([number, title, text]) => `<article class="story-item reveal"><strong>${number}</strong><h3>${title}</h3><p>${text}</p></article>`).join(''));
 
-const characterGrid = document.getElementById('characterGrid');
-const lovedGrid = document.getElementById('lovedGrid');
-const fileGrid = document.getElementById('fileGrid');
-const clueList = document.getElementById('clueList');
-const secretMessage = document.getElementById('secretMessage');
-const revealSecretBtn = document.getElementById('revealSecret');
-const profileModal = document.getElementById('profileModal');
-const profileContent = document.getElementById('profileContent');
-const videoModal = document.getElementById('videoModal');
-const videoPlayer = document.getElementById('videoPlayer');
-
-let revealedClues = 0;
-
-function renderCharacters() {
-  characterGrid.innerHTML = characters.map((character) => `
-    <article class="character-card" data-character="${character.id}" tabindex="0">
-      <img class="character-image" src="${character.image}" alt="${character.name} portrait" />
-      <div class="character-overlay">
-        <div class="character-topline">
-          <span class="character-tag">${character.universe}</span>
-          <span class="love-badge">🕷</span>
-        </div>
-        <h3>${character.name}</h3>
-        <div class="identity">${character.identity}</div>
-        <p class="tagline">${character.tagline}</p>
-        <div class="card-footer">
-          <span class="dimension">Dimension</span>
-          <button type="button" class="video-trigger" data-video="${character.video}">Loved Ones</button>
-        </div>
-      </div>
-    </article>
-  `).join('');
-
-  document.querySelectorAll('.character-card').forEach((card) => {
-    card.addEventListener('click', () => openProfile(card.dataset.character));
-    card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openProfile(card.dataset.character);
-      }
-    });
-  });
-
-  document.querySelectorAll('.video-trigger').forEach((button) => {
-    button.addEventListener('click', (event) => {
-      event.stopPropagation();
-      const videoSrc = button.dataset.video;
-      initVideo(videoSrc);
-    });
-  });
-}
-
-function renderLovedGrid() {
-  lovedGrid.innerHTML = lovedMoments.map((item) => `
-    <article class="love-card">
-      <img class="love-thumb" src="${item.thumb}" alt="${item.title}" />
-      <div class="love-info">
-        <h3>${item.title}</h3>
-        <p>${item.subtitle}</p>
-      </div>
-    </article>
-  `).join('');
-}
-
-function renderFiles() {
-  fileGrid.innerHTML = fileCards.map((item) => `
-    <article class="file-card">
-      <div class="file-info">
-        <h3>${item.title}</h3>
-        <p>${item.note}</p>
-        <div class="file-stat">
-          <span>STATUS</span>
-          <strong>${item.value}</strong>
-        </div>
-      </div>
-    </article>
-  `).join('');
-}
-
-function renderClues() {
-  clueList.innerHTML = secretClues.map((clue, index) => `
-    <li><strong>CLUE ${index + 1}</strong> // ${index <= revealedClues ? clue : '███ encrypted trace ███'}</li>
-  `).join('');
-}
-
-function setSecretMessage(message) {
-  secretMessage.textContent = message;
-}
-
-function revealSecret() {
-  if (revealedClues >= secretClues.length) {
-    setSecretMessage('[ SIGNAL COMPLETE ] // the archive has accepted the truth');
-    return;
-  }
-
-  const clue = secretClues[revealedClues];
-  setSecretMessage(`[ SIGNAL ${String(revealedClues + 1).padStart(2, '0')} ] // ${clue}`);
-  revealedClues += 1;
-  renderClues();
-}
-
-function openProfile(characterId) {
-  const character = characters.find((entry) => entry.id === characterId);
-  if (!character) return;
-
-  setSecretMessage(character.secret);
-  revealedClues = Math.min(revealedClues + 1, secretClues.length);
-  renderClues();
-
-  profileContent.innerHTML = `
-    <div class="profile-layout">
-      <div class="profile-hero">
-        <img src="${character.image}" alt="${character.name} profile" />
-        <div class="profile-hero-copy">
-          <h2>${character.name}</h2>
-          <div class="identity-tag">${character.identity} // ${character.universe}</div>
-        </div>
-      </div>
-
-      <div class="profile-details">
-        <p class="summary">${character.summary}</p>
-        <div class="meta-row">
-          <div class="meta-box">
-            <span>Origin</span>
-            <strong>${character.origin.split(' ').slice(0, 3).join(' ')}</strong>
-          </div>
-          <div class="meta-box">
-            <span>Traits</span>
-            <strong>${character.traits[0]}</strong>
-          </div>
-        </div>
-
-        <div class="split-grid">
-          <div class="detail-panel">
-            <h3>Biography</h3>
-            <ul>
-              <li>${character.bio}</li>
-              <li>${character.origin}</li>
-            </ul>
-          </div>
-
-          <div class="detail-panel">
-            <h3>Strengths</h3>
-            <div class="strength-list">
-              ${character.stats.map((stat) => `
-                <div class="strength-item">
-                  <div class="label-row"><span>${stat.label}</span><span>${stat.value}%</span></div>
-                  <div class="meter"><span style="width:${stat.value}%"></span></div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-
-        <div class="split-grid">
-          <div class="detail-panel">
-            <h3>Weaknesses</h3>
-            <ul>
-              ${character.weaknesses.map((item) => `<li>${item}</li>`).join('')}
-            </ul>
-          </div>
-
-          <div class="detail-panel">
-            <h3>Loved Ones</h3>
-            <div class="loved-list">
-              ${character.lovedOnes.map((person) => `
-                <div class="loved-item">
-                  <div class="mini-circle">${person.icon}</div>
-                  <div>
-                    <strong>${person.name}</strong>
-                    <span>${person.relation}</span>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  profileModal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeProfile() {
-  profileModal.classList.add('hidden');
-  document.body.style.overflow = '';
-}
-
-function initVideo(src) {
-  videoPlayer.src = src;
-  videoModal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-  videoPlayer.play().catch(() => {});
-}
-
-function closeVideo() {
-  videoModal.classList.add('hidden');
-  document.body.style.overflow = '';
-  videoPlayer.pause();
-  videoPlayer.currentTime = 0;
-}
-
-revealSecretBtn.addEventListener('click', revealSecret);
-
-document.querySelectorAll('[data-close="true"]').forEach((element) => {
-  element.addEventListener('click', () => {
-    closeProfile();
-    closeVideo();
-  });
+document.querySelectorAll('.filter').forEach((button) => button.addEventListener('click', () => {
+  audioManager.play('search');
+  document.querySelectorAll('.filter').forEach((item) => item.classList.remove('active'));
+  button.classList.add('active');
+  const filter = button.dataset.filter;
+  document.querySelectorAll('.threat-card').forEach((card) => { card.hidden = filter !== 'all' && card.dataset.category !== filter; });
+}));
+$('#universeSearch').addEventListener('input', (event) => {
+  audioManager.play('search');
+  const query = event.target.value.toLowerCase();
+  const visible = [...document.querySelectorAll('.universe-card')].filter((card) => { const match = card.dataset.search.toLowerCase().includes(query); card.hidden = !match; return match; }).length;
+  $('#resultCount').textContent = `${String(visible).padStart(2, '0')} RECORDS`;
 });
-
-document.getElementById('closeProfile').addEventListener('click', closeProfile);
-document.getElementById('closeVideo').addEventListener('click', closeVideo);
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    closeProfile();
-    closeVideo();
-  }
-});
-
-renderCharacters();
-renderLovedGrid();
-renderFiles();
-renderClues();
-setSecretMessage('[ SIGNAL UNSTABLE ] // the archive is listening');
+document.querySelectorAll('.profile-card').forEach((card) => { const toggle = () => { card.classList.toggle('open'); audioManager.play(card.classList.contains('open') ? 'open' : 'close'); }; card.addEventListener('click', toggle); card.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(); } }); });
+$('#menuToggle').addEventListener('click', () => { const nav = $('#mainNav'); const open = nav.classList.toggle('open'); $('#menuToggle').setAttribute('aria-expanded', open); audioManager.play('navigation'); });
+document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => { $('#mainNav').classList.remove('open'); $('#menuToggle').setAttribute('aria-expanded', 'false'); }));
+document.querySelectorAll('.button, .text-link, .scroll-cue').forEach((link) => link.addEventListener('click', () => audioManager.play('cta')));
+document.querySelectorAll('.origin-item, .story-item').forEach((item) => item.addEventListener('click', () => audioManager.play('timeline')));
+$('#motionToggle').addEventListener('click', () => { document.body.classList.toggle('reduced-motion'); audioManager.play('navigation'); });
+$('#contrastToggle').addEventListener('click', () => { document.body.classList.toggle('high-contrast'); audioManager.play('navigation'); });
+const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); }), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
