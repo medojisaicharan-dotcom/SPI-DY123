@@ -770,10 +770,15 @@ function initAudioControls() {
 
   soundToggle.addEventListener('click', (e) => {
     e.stopPropagation();
+    AudioManager.set('enabled', !AudioManager.get().enabled);
     const nextHidden = !soundPanel.hidden;
     soundPanel.hidden = nextHidden;
     soundToggle.setAttribute('aria-expanded', !nextHidden);
-    AudioManager.play('click');
+    updateUI();
+    if (AudioManager.get().enabled) {
+      AudioManager.ensureContext();
+      AudioManager.play('click');
+    }
   });
 
   document.addEventListener('click', (e) => {

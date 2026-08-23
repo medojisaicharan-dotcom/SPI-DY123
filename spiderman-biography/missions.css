@@ -251,8 +251,115 @@ body.hero-gwen {
   text-shadow: 0 0 8px var(--active-hero-glow);
 }
 
+/* ==========================================================================\n+   3. Webline Run Mini-Game\n+   ========================================================================== */
+
+.web-run-section {
+  background: rgba(4, 6, 8, 0.42);
+}
+
+.web-run-stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.web-run-stats span {
+  border-left: 2px solid var(--active-hero-color);
+  padding-left: 0.7rem;
+}
+
+.web-run-stats b {
+  color: var(--cyan);
+  margin-left: 0.3rem;
+}
+
+.web-run-console {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
+}
+
+.web-run-stage {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(110, 225, 232, 0.2);
+  background: #07101b;
+  aspect-ratio: 2.5 / 1;
+  min-height: 230px;
+}
+
+#webRunCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.web-run-status {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--line-glow);
+  background: rgba(4, 6, 8, 0.75);
+  color: var(--cyan);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+
+.web-run-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 0.25rem 0.25rem;
+}
+
+.web-run-controls p {
+  max-width: 58ch;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.web-run-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.web-run-actions .button {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .web-run-stage {
+    aspect-ratio: 1.35 / 1;
+    min-height: 260px;
+  }
+
+  .web-run-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .web-run-actions {
+    width: 100%;
+  }
+
+  .web-run-actions .button {
+    flex: 1;
+  }
+}
+
 /* ==========================================================================
-   3. Search & Filter Controls
+   4. Search & Filter Controls
    ========================================================================== */
 
 .dashboard-search-row {
@@ -293,7 +400,7 @@ body.hero-gwen {
 }
 
 /* ==========================================================================
-   4. Missions Grid & Mission Cards
+  5. Missions Grid & Mission Cards
    ========================================================================== */
 
 .missions-dashboard-grid {
@@ -559,7 +666,7 @@ body.hero-gwen {
 }
 
 /* ==========================================================================
-   5. General Layout & Back Button
+  6. General Layout & Back Button
    ========================================================================== */
 
 .back-home-cta-box {
@@ -579,7 +686,7 @@ body.hero-gwen {
 }
 
 /* ==========================================================================
-   6. Responsive Styling Media Queries
+  7. Responsive Styling Media Queries
    ========================================================================== */
 
 @media (max-width: 1024px) {

@@ -9,10 +9,15 @@ const AudioManager = (() => {
   let lastPlayed = 0;
 
   // Load volume and status from localStorage
-  const settings = JSON.parse(
-    localStorage.getItem('spiderArchiveSound') || 
-    '{"enabled":false,"master":35,"effects":80,"ambient":0}'
-  );
+  let settings;
+  try {
+    settings = JSON.parse(
+      localStorage.getItem('spiderArchiveSound') ||
+      '{"enabled":true,"master":35,"effects":80,"ambient":0}'
+    );
+  } catch (error) {
+    settings = { enabled: true, master: 35, effects: 80, ambient: 0 };
+  }
   
   const save = () => {
     localStorage.setItem('spiderArchiveSound', JSON.stringify(settings));

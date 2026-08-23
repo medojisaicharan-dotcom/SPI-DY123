@@ -113,8 +113,8 @@
 
         <div class="hero-selector-grid">
           <!-- Card 1: Tom Holland -->
-          <article class="hero-selector-card active reveal" data-hero="holland" tabindex="0">
-            <div class="hero-avatar avatar-holland"></div>
+          <article class="hero-selector-card active reveal" data-hero="peter" tabindex="0">
+            <div class="hero-avatar avatar-peter"></div>
             <div class="hero-sel-info">
               <small>DESIGNATION: EARTH-199999 (MCU)</small>
               <h3>Tom Holland</h3>
@@ -124,8 +124,8 @@
           </article>
 
           <!-- Card 2: Tobey Maguire -->
-          <article class="hero-selector-card reveal" data-hero="maguire" tabindex="0">
-            <div class="hero-avatar avatar-maguire"></div>
+          <article class="hero-selector-card reveal" data-hero="miles" tabindex="0">
+            <div class="hero-avatar avatar-miles"></div>
             <div class="hero-sel-info">
               <small>DESIGNATION: EARTH-96283 (RAIMI)</small>
               <h3>Tobey Maguire</h3>
@@ -135,8 +135,8 @@
           </article>
 
           <!-- Card 3: Andrew Garfield -->
-          <article class="hero-selector-card reveal" data-hero="garfield" tabindex="0">
-            <div class="hero-avatar avatar-garfield"></div>
+          <article class="hero-selector-card reveal" data-hero="gwen" tabindex="0">
+            <div class="hero-avatar avatar-gwen"></div>
             <div class="hero-sel-info">
               <small>DESIGNATION: EARTH-120703 (WEBB)</small>
               <h3>Andrew Garfield</h3>
@@ -144,6 +144,34 @@
               <span class="active-badge">ASSIGN HERO</span>
             </div>
           </article>
+        </div>
+      </section>
+
+      <!-- 5. Webline Run Mini-Game -->
+      <section class="section web-run-section" id="webRun">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <p class="kicker">02 / ROOFTOP TRANSIT</p>
+            <h2>Webline <em>Run</em></h2>
+          </div>
+          <div class="web-run-stats" aria-live="polite">
+            <span>BEACONS <b id="webRunScore">0</b></span>
+            <span>DISTANCE <b id="webRunDistance">0M</b></span>
+          </div>
+        </div>
+
+        <div class="web-run-console reveal">
+          <div class="web-run-stage">
+            <canvas id="webRunCanvas" aria-label="Spider-Man web-swinging game through an apartment skyline"></canvas>
+            <div class="web-run-status" id="webRunStatus">READY FOR PATROL</div>
+          </div>
+          <div class="web-run-controls">
+            <p>Hold the webline to rise. Release to dive through the apartment corridor and collect signal beacons.</p>
+            <div class="web-run-actions">
+              <button class="button button-red" id="webRunStart" type="button">Start Patrol <span>↗</span></button>
+              <button class="button button-ghost" id="webRunWeb" type="button">Hold Webline <span>⌁</span></button>
+            </div>
+          </div>
         </div>
       </section>
 

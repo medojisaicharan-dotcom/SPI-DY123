@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAudioControls();
   initThemeToggles();
   initHeroAssignment();
+  initWeblineRun();
   initMissionsEngine();
   updateDashboardStats();
 });
@@ -171,10 +172,15 @@ function initAudioControls() {
 
   soundToggle.addEventListener('click', (e) => {
     e.stopPropagation();
+    AudioManager.set('enabled', !AudioManager.get().enabled);
     const nextHidden = !soundPanel.hidden;
     soundPanel.hidden = nextHidden;
     soundToggle.setAttribute('aria-expanded', !nextHidden);
-    AudioManager.play('click');
+    updateUI();
+    if (AudioManager.get().enabled) {
+      AudioManager.ensureContext();
+      AudioManager.play('click');
+    }
   });
 
   document.addEventListener('click', (e) => {
@@ -284,6 +290,202 @@ function initHeroAssignment() {
     card.addEventListener('mouseenter', () => AudioManager.play('whoosh'));
     card.addEventListener('focus', () => AudioManager.play('whoosh'));
   });
+}
+
+// Small canvas patrol: swing upward, collect beacons, and avoid drones.
+function initWeblineRun() {
+  const canvas = $('#webRunCanvas');
+  const startButton = $('#webRunStart');
+  const webButton = $('#webRunWeb');
+  const status = $('#webRunStatus');
+  if (!canvas || !startButton || !webButton || !status) return;
+
+  const context = canvas.getContext('2d');
+  const heroColor = getComputedStyle(document.body).getPropertyValue('--active-hero-color').trim() || '#e52f43';
+  const game = {
+    active: false,
+    swinging: false,
+    score: 0,
+    distance: 0,
+    playerY: 170,
+    velocityY: 0,
+    beacons: [],
+    drones: [],
+    lastTime: 0,
+    animationFrame: 0
+  };
+  const width = 900;
+  const height = 360;
+  const playerX = 165;
+
+  const resizeCanvas = () => {
+    const scale = window.devicePixelRatio || 1;
+    canvas.width = width * scale;
+    canvas.height = height * scale;
+    context.setTransform(scale, 0, 0, scale, 0, 0);
+    drawScene();
+  };
+
+  const resetGame = () => {
+    game.active = true;
+    game.swinging = false;
+    game.score = 0;
+    game.distance = 0;
+    game.playerY = 170;
+    game.velocityY = 0;
+    game.beacons = Array.from({ length: 8 }, (_, index) => ({
+      x: 430 + index * 145,
+      y: 72 + (index % 3) * 66,
+      collected: false
+    }));
+    game.drones = Array.from({ length: 5 }, (_, index) => ({
+      x: 660 + index * 245,
+      y: 100 + (index % 2) * 100
+    }));
+    status.textContent = 'PATROL ACTIVE';
+    startButton.textContent = 'Restart Patrol';
+    game.lastTime = performance.now();
+    cancelAnimationFrame(game.animationFrame);
+    game.animationFrame = requestAnimationFrame(step);
+  };
+
+  const endGame = (message) => {
+    game.active = false;
+    game.swinging = false;
+    status.textContent = message;
+    AudioManager.play('success');
+    drawScene();
+  };
+
+  const setSwinging = (value) => {
+    game.swinging = value;
+    webButton.classList.toggle('active', value);
+    if (value && !game.active) resetGame();
+  };
+
+  const drawBuilding = (x, buildingWidth, buildingHeight, hue) => {
+    const top = height - buildingHeight;
+    context.fillStyle = hue;
+    context.fillRect(x, top, buildingWidth, buildingHeight);
+    context.strokeStyle = 'rgba(110, 225, 232, 0.12)';
+    context.strokeRect(x, top, buildingWidth, buildingHeight);
+    for (let row = top + 18; row < height - 14; row += 32) {
+      for (let column = x + 14; column < x + buildingWidth - 10; column += 28) {
+        context.fillStyle = (Math.floor(row + column) % 3 === 0) ? '#e4b76e' : 'rgba(110, 225, 232, 0.18)';
+        context.fillRect(column, row, 10, 13);
+      }
+    }
+  };
+
+  const drawScene = () => {
+    context.clearRect(0, 0, width, height);
+    const sky = context.createLinearGradient(0, 0, 0, height);
+    sky.addColorStop(0, '#071827');
+    sky.addColorStop(1, '#03070c');
+    context.fillStyle = sky;
+    context.fillRect(0, 0, width, height);
+
+    context.fillStyle = 'rgba(110, 225, 232, 0.08)';
+    for (let index = 0; index < 18; index += 1) {
+      const x = (index * 83 - game.distance * 0.25) % width;
+      context.fillRect(x < 0 ? x + width : x, 42 + (index % 4) * 27, 2, 2);
+    }
+
+    for (let index = 0; index < 7; index += 1) {
+      const buildingX = ((index * 155 - game.distance * 0.55) % 1085) - 100;
+      drawBuilding(buildingX, 120 + (index % 2) * 24, 130 + (index % 3) * 30, index % 2 ? '#0c1d2a' : '#102536');
+    }
+
+    context.fillStyle = '#05090e';
+    context.fillRect(0, height - 20, width, 20);
+    game.beacons.forEach(beacon => {
+      if (beacon.collected || beacon.x < -30 || beacon.x > width + 30) return;
+      context.beginPath();
+      context.arc(beacon.x, beacon.y, 7, 0, Math.PI * 2);
+      context.fillStyle = '#6ee1e8';
+      context.shadowColor = '#6ee1e8';
+      context.shadowBlur = 16;
+      context.fill();
+      context.shadowBlur = 0;
+    });
+
+    game.drones.forEach(drone => {
+      if (drone.x < -30 || drone.x > width + 30) return;
+      context.fillStyle = '#e52f43';
+      context.fillRect(drone.x - 10, drone.y - 4, 20, 8);
+      context.fillStyle = '#f4f7fb';
+      context.fillRect(drone.x - 3, drone.y - 2, 6, 4);
+    });
+
+    if (game.swinging) {
+      context.beginPath();
+      context.moveTo(playerX, game.playerY - 10);
+      context.lineTo(playerX + 75, 30);
+      context.strokeStyle = 'rgba(244, 247, 251, 0.8)';
+      context.lineWidth = 2;
+      context.stroke();
+    }
+
+    context.beginPath();
+    context.arc(playerX, game.playerY, 12, 0, Math.PI * 2);
+    context.fillStyle = heroColor;
+    context.fill();
+    context.fillStyle = '#f4f7fb';
+    context.fillRect(playerX - 7, game.playerY - 3, 4, 3);
+    context.fillRect(playerX + 3, game.playerY - 3, 4, 3);
+  };
+
+  const step = (time) => {
+    if (!game.active) return;
+    const delta = Math.min((time - game.lastTime) / 16.67, 2);
+    game.lastTime = time;
+    game.distance += 2.2 * delta;
+    game.beacons.forEach(beacon => { beacon.x -= 2.2 * delta; });
+    game.drones.forEach(drone => { drone.x -= 2.2 * delta; });
+    if (game.swinging) game.velocityY -= 0.72 * delta;
+    game.velocityY += 0.48 * delta;
+    game.velocityY *= 0.98;
+    game.playerY += game.velocityY * delta;
+    if (game.playerY < 38) { game.playerY = 38; game.velocityY = 0; }
+
+    game.beacons.forEach(beacon => {
+      if (!beacon.collected && Math.hypot(beacon.x - playerX, beacon.y - game.playerY) < 22) {
+        beacon.collected = true;
+        game.score += 10;
+        AudioManager.play('webShoot');
+      }
+    });
+    if (game.drones.some(drone => Math.abs(drone.x - playerX) < 24 && Math.abs(drone.y - game.playerY) < 22)) {
+      endGame('PATROL INTERRUPTED');
+      return;
+    }
+    if (game.playerY > height - 38) {
+      endGame('ROOFTOP IMPACT');
+      return;
+    }
+    $('#webRunScore').textContent = game.score;
+    $('#webRunDistance').textContent = `${Math.floor(game.distance)}M`;
+    drawScene();
+    game.animationFrame = requestAnimationFrame(step);
+  };
+
+  startButton.addEventListener('click', resetGame);
+  ['pointerdown', 'touchstart'].forEach(eventName => webButton.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    setSwinging(true);
+  }, { passive: false }));
+  ['pointerup', 'pointercancel', 'touchend', 'touchcancel', 'mouseleave'].forEach(eventName => webButton.addEventListener(eventName, () => setSwinging(false)));
+  window.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+      event.preventDefault();
+      setSwinging(true);
+    }
+  });
+  window.addEventListener('keyup', (event) => {
+    if (event.code === 'Space') setSwinging(false);
+  });
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
 }
 
 // Dispatch Missions Manager Engine
